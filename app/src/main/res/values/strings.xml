@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Fun Emoji Packs</string>
+    <string name="makePage_image">Showing the image you choose</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
