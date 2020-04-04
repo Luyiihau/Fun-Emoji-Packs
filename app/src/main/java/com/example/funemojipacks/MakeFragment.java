@@ -7,11 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.funemojipacks.make.MakeAdapter;
+import com.example.funemojipacks.make.make_appear;
+import com.example.funemojipacks.make.make_face;
+import com.example.funemojipacks.make.make_text;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

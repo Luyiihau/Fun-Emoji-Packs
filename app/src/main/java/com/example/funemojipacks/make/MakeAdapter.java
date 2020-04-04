@@ -1,4 +1,4 @@
-package com.example.funemojipacks;
+package com.example.funemojipacks.make;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

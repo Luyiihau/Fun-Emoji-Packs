@@ -1,4 +1,4 @@
-package com.example.funemojipacks;
+package com.example.funemojipacks.make;
 
 import android.os.Bundle;
 
@@ -8,13 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.funemojipacks.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class make_face extends Fragment {
+public class make_text extends Fragment {
 
-    public make_face() {
+    public make_text() {
         // Required empty public constructor
     }
 
@@ -23,6 +25,6 @@ public class make_face extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_make_face, container, false);
+        return inflater.inflate(R.layout.fragment_make_text, container, false);
     }
 }
