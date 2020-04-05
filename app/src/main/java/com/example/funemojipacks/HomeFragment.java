@@ -9,11 +9,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.funemojipacks.home.HomeAdapter;
+import com.example.funemojipacks.home.home_hottest;
+import com.example.funemojipacks.home.home_meme;
+import com.example.funemojipacks.home.home_newest;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 // ----酷杨
