@@ -25,13 +25,15 @@ public class MakeFragment extends Fragment {
     Button likeButton;//点赞按钮
     Button downButton;//下载按钮
     Button shareButton;//分享按钮
-    ImageView emojiImage;//表情图片（按钮左边的ImageView）
+    private ImageView emojiImage;//表情图片（按钮左边的ImageView）
     TabLayout tabLayout;//滑动子页面
     ViewPager viewPager;//
     private View view;
     private List<Fragment> list = new ArrayList<Fragment>();
     private List<String> stringList = new ArrayList<>();
-
+    final int[] faces = {R.drawable.make1, R.drawable.make2,
+            R.drawable.make3, R.drawable.make4,
+            R.drawable.make5};
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
