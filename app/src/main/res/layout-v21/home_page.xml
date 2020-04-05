@@ -33,10 +33,10 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/background_shape"
             android:iconifiedByDefault="false"
+            android:queryBackground="@null"
             android:queryHint="Search"
-            android:showDividers="none"/>
-<!--            android:queryBackground="@null"-->
-<!--            android:submitBackground="@null" />-->
+            android:showDividers="none"
+            android:submitBackground="@null" />
 
     </LinearLayout>
 
