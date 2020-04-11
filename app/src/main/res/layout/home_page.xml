@@ -83,5 +83,9 @@
         android:text="我是首页---酷杨"
         android:textSize="30dp" />
 
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
 

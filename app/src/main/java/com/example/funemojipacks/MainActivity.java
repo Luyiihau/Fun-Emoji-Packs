@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.funemojipacks.make.make_appear;
+
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
     // 底部菜单4个Linearlayout
@@ -91,6 +93,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private void initFragment(int index) {
         // 管理器要用getSupportFragmentManager获取
         FragmentManager fragmentManager = getSupportFragmentManager();
+
         // 开启事务
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // 隐藏所有Fragment
@@ -107,7 +110,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             case 1:
                 if (makeFragment == null) {
                     makeFragment = new MakeFragment();
-                    transaction.add(R.id.fl_content, makeFragment);
+                    transaction.add(R.id.fl_content, makeFragment,"makefragment");//加入tag
                 } else {
                     transaction.show(makeFragment);
                 }

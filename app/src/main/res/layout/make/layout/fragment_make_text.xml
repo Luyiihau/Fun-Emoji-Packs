@@ -57,11 +57,24 @@
         android:id="@+id/make_text_editText"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="@+id/guideline14"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/inputbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/make_text_inputbtn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="@+id/guideline15" />
 </androidx.constraintlayout.widget.ConstraintLayout>
