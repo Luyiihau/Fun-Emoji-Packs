@@ -44,8 +44,8 @@ public class HomeFragment extends Fragment {
         list.add(new home_newest());
 
         stringList.add("MEME");
-        stringList.add("FACE");
-        stringList.add("TEXT");
+        stringList.add("HOTTEST");
+        stringList.add("NEWEST");
 
         tabLayout = (TabLayout) view.findViewById(R.id.home_tab_layout);
         for (String str : stringList) {

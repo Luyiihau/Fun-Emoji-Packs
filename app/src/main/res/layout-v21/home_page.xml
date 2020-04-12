@@ -7,38 +7,38 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/home_page_bottom_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bar"
-        android:gravity="start"
-        android:orientation="horizontal"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/home_page_bottom_background"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/bar"-->
+<!--        android:gravity="start"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="20dp"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="30dp"
-            android:layout_height="42dp"
-            android:contentDescription="go back"
-            android:src="@drawable/back" />
+<!--        <ImageView-->
+<!--            android:id="@+id/iv_back"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="42dp"-->
+<!--            android:contentDescription="go back"-->
+<!--            android:src="@drawable/back" />-->
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/background_shape"
-            android:iconifiedByDefault="false"
-            android:queryBackground="@null"
-            android:queryHint="Search"
-            android:showDividers="none"
-            android:submitBackground="@null" />
+<!--        <SearchView-->
+<!--            android:id="@+id/searchView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginStart="1dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:background="@drawable/background_shape"-->
+<!--            android:iconifiedByDefault="false"-->
+<!--            android:queryBackground="@null"-->
+<!--            android:queryHint="Search"-->
+<!--            android:showDividers="none"-->
+<!--            android:submitBackground="@null" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/homeviewPager"
@@ -51,7 +51,7 @@
         android:id="@+id/home_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:layout_constraintTop_toBottomOf="@id/home_page_bottom_background">
+        app:layout_constraintTop_toTopOf="parent">
 
     </com.google.android.material.tabs.TabLayout>
 
