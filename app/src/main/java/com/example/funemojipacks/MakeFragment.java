@@ -195,28 +195,28 @@ public class MakeFragment extends Fragment{
                 invalidate();
             }
 
-            if (event.getAction() == MotionEvent.ACTION_POINTER_DOWN){
-                predistance = getDistance(event);
-                if(predistance > 10f){
-                    mid = getMid(event);
-                    savedMatrix.set(matrix);
-                    finger = 2;
-                }
-            }
-            if(event.getAction() == MotionEvent.ACTION_MOVE){
-                if(finger == 2){
-                    distance = getDistance(event);
-                    if(distance > 10f){
-                        matrix.set(savedMatrix);
-                        float scale = distance / predistance;
-                        matrix.postScale(scale, scale, mid.x, mid.y);
-                    }
-                }
-                int width = bitmap2.getWidth();
-                int height = bitmap2.getHeight();
-                bitmap2 = Bitmap.createBitmap(bitmap2, 0, 0, width, height, matrix, false);
-                bitmap2.recycle();
-            }
+//            if (event.getAction() == MotionEvent.ACTION_POINTER_DOWN){
+//                predistance = getDistance(event);
+//                if(predistance > 10f){
+//                    mid = getMid(event);
+//                    savedMatrix.set(matrix);
+//                    finger = 2;
+//                }
+//            }
+//            if(event.getAction() == MotionEvent.ACTION_MOVE){
+//                if(finger == 2){
+//                    distance = getDistance(event);
+//                    if(distance > 10f){
+//                        matrix.set(savedMatrix);
+//                        float scale = distance / predistance;
+//                        matrix.postScale(scale, scale, mid.x, mid.y);
+//                    }
+//                }
+//                int width = bitmap2.getWidth();
+//                int height = bitmap2.getHeight();
+//                bitmap2 = Bitmap.createBitmap(bitmap2, 0, 0, width, height, matrix, false);
+//                bitmap2.recycle();
+//            }
 
             return true;
         }
