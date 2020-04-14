@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import shareFragment.ShareFragment;
 
+import com.example.funemojipacks.make.make_appear;
+
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
     // 底部菜单4个Linearlayout
@@ -123,7 +125,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             case 1:
                 if (makeFragment == null) {
                     makeFragment = new MakeFragment();
-                    transaction.add(R.id.fl_content, makeFragment);
+                    transaction.add(R.id.fl_content, makeFragment,"makefragment");//加入tag
                 } else {
                     transaction.show(makeFragment);
                 }
