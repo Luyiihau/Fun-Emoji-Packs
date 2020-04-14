@@ -3,6 +3,7 @@ package com.example.funemojipacks;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,6 +12,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -89,7 +91,7 @@ public class MakeFragment extends Fragment{
      * 初始化
      */
     private void initView(){
-        MakeFragment.this.requestPermissions(PERMISSIONS_REQ,1);
+//        MakeFragment.this.requestPermissions(PERMISSIONS_REQ,1);
         forFace = new Rectangle(view.getContext());
 //        setImage(0);
 //        relativeLayout.addView(new Rectangle(view.getContext()));
@@ -126,6 +128,7 @@ public class MakeFragment extends Fragment{
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
+
 
     /**
      * 编辑文字
@@ -268,10 +271,8 @@ public class MakeFragment extends Fragment{
     public void savePicture(Bitmap bitmap, String filename){
         if(bitmap == null || filename == null)
             return;
-        File sdCard = Environment.getExternalStorageDirectory();
-        File directory = new File( sdCard.getAbsoluteFile() + "/fun");
-        directory.mkdirs();
-        File myCaptureFile = new File(directory, filename);
+        String gallery = Environment.getExternalStorageDirectory().getPath() + "/DCIM/" + filename;
+        File myCaptureFile = new File(gallery);
         try{
             FileOutputStream fOut = new FileOutputStream(myCaptureFile);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fOut);
@@ -282,13 +283,8 @@ public class MakeFragment extends Fragment{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try{
-            MediaStore.Images.Media.insertImage(view.getContext().getContentResolver(), myCaptureFile.getAbsolutePath(), filename, null);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        view.getContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(myCaptureFile.getPath()))));
+        MediaStore.Images.Media.insertImage(view.getContext().getContentResolver(), bitmap, filename, null);
+        view.getContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(myCaptureFile)));
         Toast.makeText(view.getContext(), "Success! Please check your photo album.", Toast.LENGTH_SHORT).show();
     }
 
@@ -311,6 +307,8 @@ public class MakeFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
+
+
 }
 
 
