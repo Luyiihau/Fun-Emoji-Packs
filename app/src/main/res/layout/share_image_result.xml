@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activityFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:baselineAligned="false">
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="426dp"
@@ -13,8 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/bar"
         android:orientation="horizontal"
-        android:padding="5dp" >
-
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/textView2"
@@ -23,27 +22,34 @@
             android:layout_marginLeft="170dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:text="Gallery"
+            android:text="Preview"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#3A95FD"
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/share_Continue"
+            android:id="@+id/share_Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:textColor="#3A95FD"
-            android:textSize="18sp"
             android:layout_marginTop="5dp"
-            android:text="continue" />
-
+            android:layout_weight="0.1"
+            android:text="share"
+            android:textColor="#3A95FD"
+            android:textSize="18sp" />
     </LinearLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/share_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <ImageView
+        android:id="@+id/image_result"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="120dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/share_result_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

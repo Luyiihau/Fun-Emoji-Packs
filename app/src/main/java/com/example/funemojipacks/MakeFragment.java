@@ -3,7 +3,6 @@ package com.example.funemojipacks;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,7 +11,6 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -91,7 +89,7 @@ public class MakeFragment extends Fragment{
      * 初始化
      */
     private void initView(){
-//        MakeFragment.this.requestPermissions(PERMISSIONS_REQ,1);
+        //MakeFragment.this.requestPermissions(PERMISSIONS_REQ,1);
         forFace = new Rectangle(view.getContext());
 //        setImage(0);
 //        relativeLayout.addView(new Rectangle(view.getContext()));
@@ -128,7 +126,6 @@ public class MakeFragment extends Fragment{
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
-
 
     /**
      * 编辑文字
@@ -271,7 +268,7 @@ public class MakeFragment extends Fragment{
     public void savePicture(Bitmap bitmap, String filename){
         if(bitmap == null || filename == null)
             return;
-        String gallery = Environment.getExternalStorageDirectory().getPath() + "/DCIM/" + filename;
+        String gallery = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/DCIM/" + filename;
         File myCaptureFile = new File(gallery);
         try{
             FileOutputStream fOut = new FileOutputStream(myCaptureFile);
@@ -307,8 +304,6 @@ public class MakeFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
-
-
 }
 
 

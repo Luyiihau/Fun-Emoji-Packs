@@ -14,10 +14,13 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import shareFragment.ShareFragment;
 
 import com.example.funemojipacks.make.make_appear;
 
@@ -50,16 +53,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private String[] mStrs = {"kk", "kk", "wskx", "wksx"};
     private SearchView mSearchView;
     private ListView lListView;
-    private  final int REQUEST_EXTERNAL_STORAGE = 1;
-    private  String[] PERMISSIONS_STORAGE = {
+
+    //获取sd卡照片读取权限
+    private static final int REQUEST_CODE = 1;
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    private static String[] PERMISSIONS_REQ = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE };
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        verifyPermissions(this);
 
 //        mSearchView = (SearchView) findViewById(R.id.searchView);
 //        lListView = (ListView) findViewById(R.id.listView);
@@ -101,7 +109,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private void initFragment(int index) {
         // 管理器要用getSupportFragmentManager获取
         FragmentManager fragmentManager = getSupportFragmentManager();
-
         // 开启事务
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // 隐藏所有Fragment
@@ -124,12 +131,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 }
                 break;
             case 2:
-                if (shareFragment == null) {
-                    shareFragment = new ShareFragment();
-                    transaction.add(R.id.fl_content, shareFragment);
-                } else {
-                    transaction.show(shareFragment);
-                }
+//                if (shareFragment == null) {
+//                    shareFragment = new ShareFragment();
+//                    transaction.add(R.id.fl_content, shareFragment);
+//                } else {
+//                    transaction.show(shareFragment);
+//                }
+                //因为每次进入share页面都会读取系统相册，所以更改为以下两行，因此share页会重新完成fragment生命周期
+                shareFragment = new ShareFragment();
+                transaction.add(R.id.fl_content, shareFragment);
                 break;
             case 3:
                 if (meFragment == null) {
@@ -243,15 +253,25 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         tv_me.setTextColor(Color.GRAY);
     }
 
-    public  void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(activity, PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE);
-        }
 
+    private static boolean verifyPermissions(Activity activity) {
+        // Check if we have write permission
+        int read_permission = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int write_permission = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (read_permission != PackageManager.PERMISSION_GRANTED && write_permission !=
+                PackageManager.PERMISSION_GRANTED ) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_REQ,
+                    REQUEST_CODE_PERMISSION
+            );
+            return false;
+        } else {
+            return true;
+        }
     }
+
 }
