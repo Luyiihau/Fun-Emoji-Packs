@@ -1,4 +1,4 @@
-package shareFragment;
+package com.example.funemojipacks;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -36,6 +36,10 @@ import com.yalantis.ucrop.UCrop;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import shareFragment.ImageAdapter;
+import shareFragment.ImageModel;
+import shareFragment.ShareImageResultActivity;
 
 import static android.app.Activity.RESULT_OK;
 

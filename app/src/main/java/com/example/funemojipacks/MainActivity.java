@@ -14,15 +14,10 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import shareFragment.ShareFragment;
-
-import com.example.funemojipacks.make.make_appear;
 
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
