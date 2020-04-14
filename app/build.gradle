@@ -21,6 +21,7 @@ android {
     sourceSets {
         main{
             res.srcDirs = [
+                    'src/main/res/layout/home',
                     'src/main/res/layout/make',
                     'src/main/res/layout',
                     'src/main/res'
