@@ -29,7 +29,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
-        <activity android:name="shareFragment.ShareImageResultActivity"
+        <activity android:name=".shareFragment.ShareImageResultActivity"
                   android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity

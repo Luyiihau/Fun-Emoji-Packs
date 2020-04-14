@@ -1,4 +1,4 @@
-package shareFragment;
+package com.example.funemojipacks.shareFragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

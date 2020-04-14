@@ -1,4 +1,4 @@
-package shareFragment;
+package com.example.funemojipacks.shareFragment;
 
 import android.view.View;
 import android.widget.CheckBox;

@@ -1,45 +1,31 @@
 package com.example.funemojipacks;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.funemojipacks.MainActivity;
-import com.example.funemojipacks.R;
 import com.yalantis.ucrop.UCrop;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
-import shareFragment.ImageAdapter;
-import shareFragment.ImageModel;
-import shareFragment.ShareImageResultActivity;
+import com.example.funemojipacks.shareFragment.ImageAdapter;
+import com.example.funemojipacks.shareFragment.ImageModel;
+import com.example.funemojipacks.shareFragment.ShareImageResultActivity;
 
 import static android.app.Activity.RESULT_OK;
 
