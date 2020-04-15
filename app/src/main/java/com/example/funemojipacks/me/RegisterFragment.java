@@ -1,6 +1,5 @@
 package com.example.funemojipacks.me;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 
@@ -57,18 +57,6 @@ public class RegisterFragment extends Fragment {
                 // Success
                 else{
                     Toast.makeText(getContext(), R.string.regist_succ_tips, Toast.LENGTH_LONG).show();
-                    //jump to MeFragment
-                    /*
-                    FragmentManager fm = getActivity().getFragmentManager();
-                    Fragment mMeFragment = new MeFragment();
-
-
-                    fm
-                             .beginTransaction()
-                             .replace(R.id.meRegisterConstraint, mMeFragment);
-                             .commit();
-
-
 
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -84,7 +72,7 @@ public class RegisterFragment extends Fragment {
                     transaction.show(mMeFragment);
 
                     // 提交事务
-                    transaction.commit();*/
+                    transaction.commit();
                 }
             }
         });

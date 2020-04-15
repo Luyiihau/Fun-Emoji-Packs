@@ -15,9 +15,7 @@
     <string name="log_empty_tips">Username and password could not be empty.</string>
     <string name="pwd_diff_tips">Input the same password twice.</string>
     <string name="regist_succ_tips">Regist successfully, please sign in.</string>
-
-
-
+    <string name="logout_succ_tips">Sign out successfully.</string>
 
 </resources>
 

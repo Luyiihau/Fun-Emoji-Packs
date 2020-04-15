@@ -1,6 +1,7 @@
 package com.example.funemojipacks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +26,9 @@ public class MeFragment  extends Fragment {
     EditText vUsername, vPwd;
     Button loginButtom, registButtom;
 
-    private UserInfoFragment mUserInfoFragment;
-    private MeFragment mMeFragment;
-    private RegisterFragment mRegisterFragment;
+    private Fragment mUserInfoFragment, mMeFragment, mRegisterFragment;
+    // private MeFragment mMeFragment;
+    // private RegisterFragment mRegisterFragment;
 
     public MeFragment(){
 
@@ -54,30 +55,17 @@ public class MeFragment  extends Fragment {
                 String pwd = vPwd.getText().toString();
 
                 if (username.equals("") || pwd.equals("")){
-                    // toast message
-                    // String tips = getString(R.string.log_empty_tips);
                     Toast.makeText(getContext(), R.string.log_empty_tips, Toast.LENGTH_LONG).show();
                 }
-                // add more conditions here
-                // jump to LoginFragment
+                // add more if conditions here
                 else{
-                    System.out.println("The username:" + username + ".The pwd" + pwd);
+                    Intent intent = new Intent(getActivity(), ShowUserInfoActivity.class);
 
-                    // 管理器要用getSupportFragmentManager获取
-                    FragmentManager fragmentManager = getFragmentManager();
-                    // 开启事务
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    // 隐藏所有Fragment
-                    hideFragment(transaction);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("username", username);
+                    intent.putExtras(bundle);
 
-                    if (mUserInfoFragment == null) {
-                        mUserInfoFragment = new UserInfoFragment();
-                        transaction.add(R.id.meConstraintLayout, mUserInfoFragment);
-                    } else {
-                        transaction.show(mUserInfoFragment);
-                    }
-                    // 提交事务
-                    transaction.commit();
+                    startActivity(intent);
                 }
             }
         });
@@ -90,52 +78,15 @@ public class MeFragment  extends Fragment {
                 // Bundle bundle = new Bundle();
                 // intent.putExtras(bundle); startActivity(intent);
 
-                // RegistFragment
-                // RegistXML
-                // 写一个buttom注册存数据
-                // 注册之后跳转到登录页面
-
                 System.out.println("Register a new username");
 
-                // 管理器要用getSupportFragmentManager获取
-                FragmentManager fragmentManager = getFragmentManager();
-                // 开启事务
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                // 隐藏所有Fragment
-                hideFragment(transaction);
-
-                if (mRegisterFragment == null) {
-                    mRegisterFragment = new RegisterFragment();
-                    transaction.add(R.id.meConstraintLayout, mRegisterFragment);
-                } else {
-                    transaction.show(mRegisterFragment);
-                }
-                // 提交事务
-                transaction.commit();
-
+                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
         return view;
     }
 
-    //隐藏Fragment
-    private void hideFragment(FragmentTransaction transaction) {
-        System.out.println("Condition1!");
-        if (mRegisterFragment != null) {
-            System.out.println("Condition1 execute!");
-            transaction.hide(mRegisterFragment);
-        }
-        if (mMeFragment != null) {
-            System.out.println("Condition2 execute!");
-            transaction.hide(mMeFragment);
-        }
-        if (mUserInfoFragment != null) {
-            System.out.println("Condition3 execute!");
-            transaction.hide(mUserInfoFragment);
-        }
-        loginButtom.setVisibility(View.INVISIBLE);
-        registButtom.setVisibility(View.INVISIBLE);
-    }
 
 }

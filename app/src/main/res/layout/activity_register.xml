@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/meRegisterConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.example.funemojipacks.me.RegisterFragment">
+    tools:context=".RegisterActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
@@ -123,6 +122,5 @@
         app:layout_constraintTop_toTopOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         android:text="@string/regist_btn_text"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
