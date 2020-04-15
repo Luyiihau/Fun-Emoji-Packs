@@ -18,9 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.funemojipacks.me.RegisterFragment;
 
-
-// ----萌佳
-
 public class MeFragment  extends Fragment {
 
     private View view;

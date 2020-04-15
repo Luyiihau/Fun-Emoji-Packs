@@ -122,6 +122,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 break;
             case 3:
                 if (meFragment == null) {
+                    // !!!!!!
+                    // 注册页面
+                    // meFragment = new MeFragment();
                     meFragment = new MeFragment();
                     transaction.add(R.id.fl_content, meFragment);
                 } else {
