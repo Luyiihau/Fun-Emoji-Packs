@@ -2,5 +2,22 @@
     <string name="app_name">Fun Emoji Packs</string>
 
     <string name="profile_img">This is user img profile.</string>
+
+    <string name="login_username">Username/E-mail: </string>
+    <string name="sample_login_username">abc</string>
+    <string name="login_pwd">Password: </string>
+    <string name="login_pwd_confirm">Repeat your Password: </string>
+    <string name="login_btn_text">Sign in</string>
+    <string name="no_account">Do not have a account? </string>
+    <string name="regist_btn_text">Sign up</string>
+    <string name="logout_btn_text">Sign out</string>
+
+    <string name="log_empty_tips">Username and password could not be empty.</string>
+    <string name="pwd_diff_tips">Input the same password twice.</string>
+    <string name="regist_succ_tips">Regist successfully, please sign in.</string>
+
+
+
+
 </resources>
 

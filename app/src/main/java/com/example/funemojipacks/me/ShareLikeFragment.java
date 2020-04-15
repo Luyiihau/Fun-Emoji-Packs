@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,15 +17,16 @@ public class ShareLikeFragment extends Fragment {
     private View view;
     private GridView gridView;
 
-    public ShareLikeFragment()  {
+    //
+    // public ShareLikeFragment()  {
 
-    }
+    // }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.me_fragment, container, false);
+        view = inflater.inflate(R.layout.me_grid_item, container, false);
         initView();
         return view;
     }
