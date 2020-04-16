@@ -21,10 +21,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.funemojipacks.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class home_meme extends Fragment{
+public class home_meme extends Fragment {
 
     private Context context;
     private GridView gridView;
@@ -32,6 +33,7 @@ public class home_meme extends Fragment{
     private SearchView searchView;
     private ListView listView;
     private View view;
+    private ArrayList<Integer> faces = new ArrayList<>();
 
     public home_meme() {
 
@@ -45,8 +47,23 @@ public class home_meme extends Fragment{
     }
 
     private void initView() {
-        final int[] faces = {R.drawable.make1, R.drawable.make2, R.drawable.make3,
-                R.drawable.make4, R.drawable.make5};
+//        final int[] faces = {R.drawable.make1, R.drawable.make2, R.drawable.make3,
+//                R.drawable.make4, R.drawable.make5};
+//        faces.add(R.drawable.make1);
+//        faces.add(R.drawable.make2);
+//        faces.add(R.drawable.make3);
+//        faces.add(R.drawable.make4);
+//        faces.add(R.drawable.make5);
+        if (!faces.contains(R.drawable.make1))
+            faces.add(R.drawable.make1);
+        if (!faces.contains(R.drawable.make2))
+            faces.add(R.drawable.make2);
+        if (!faces.contains(R.drawable.make3))
+            faces.add(R.drawable.make3);
+        if (!faces.contains(R.drawable.make4))
+            faces.add(R.drawable.make4);
+        if (!faces.contains(R.drawable.make5))
+            faces.add(R.drawable.make5);
 //        final String[] mStrings = {"aaa", "bbb", "ccc", "ddd"};
         final String[] mStrings = {};
 
@@ -55,23 +72,22 @@ public class home_meme extends Fragment{
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent1=new Intent(getActivity(),Browse.class);
-                Bundle bundle=new Bundle();
-                bundle.putInt("image",faces[position]);
+                Intent intent1 = new Intent(getActivity(), Browse.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("image", faces.get(position));
                 intent1.putExtras(bundle);
                 startActivity(intent1);
             }
         });
-        search_btn=(Button) view.findViewById(R.id.search_button);
+        search_btn = (Button) view.findViewById(R.id.search_button);
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2=new Intent(getActivity(),Search.class);
+                Intent intent2 = new Intent(getActivity(), Search.class);
                 startActivity(intent2);
             }
         });
     }
-
 
 
 }

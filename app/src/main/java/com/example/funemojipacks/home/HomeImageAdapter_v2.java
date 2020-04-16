@@ -1,10 +1,14 @@
 package com.example.funemojipacks.home;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -13,22 +17,24 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.funemojipacks.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class HomeImageAdapter extends BaseAdapter {
+public class HomeImageAdapter_v2 extends BaseAdapter {
     private Context context;
-    private ArrayList<Integer> imageUrls;
+    private ArrayList<String> imageUrls;//图片路径
+    private FileInputStream fis;
 
-    public HomeImageAdapter(Context context,ArrayList<Integer> imageUrls)
-    {
+    public HomeImageAdapter_v2(Context context, ArrayList<String> imageUrls) {
         super();
-        this.context=context;
-        this.imageUrls=imageUrls;
+        this.context = context;
+        this.imageUrls = imageUrls;
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return imageUrls.size();
     }
 
@@ -46,29 +52,34 @@ public class HomeImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //构建静态ViewHolder 复制后面的静态类再用 否则会调用RecyclerView中的ViewHolder
-        HomeImageAdapter.ViewHolder holder = null;
+        HomeImageAdapter_v2.ViewHolder holder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(
                     R.layout.home_item_layout, null);
-            holder = new HomeImageAdapter.ViewHolder();
+            holder = new HomeImageAdapter_v2.ViewHolder();
             holder.iv = (ImageView) convertView.findViewById(R.id.home_image_item);
             convertView.setTag(holder);// 如果convertView为空就 把holder赋值进去
         } else {
-            holder = (HomeImageAdapter.ViewHolder) convertView.getTag();// 如果convertView不为空，那么就在convertView中getTag()拿出来
+            holder = (HomeImageAdapter_v2.ViewHolder) convertView.getTag();// 如果convertView不为空，那么就在convertView中getTag()拿出来
         }
 
-        //用Glide读取并加载图片 https://www.youtube.com/watch?v=xMyfY02Bs_M
-        //Fragment 嵌套 GridView https://www.jianshu.com/p/56c17ed179fa
+//        用Glide读取并加载图片 https://www.youtube.com/watch?v=xMyfY02Bs_M
+//        Fragment 嵌套 GridView https://www.jianshu.com/p/56c17ed179fa
+//        try {
+//            fis = new FileInputStream(new File(imageUrls.get(position)));
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        Bitmap bmp = BitmapFactory.decodeStream(fis);
         Glide.with(context)
                 .load(imageUrls.get(position))
                 .into(holder.iv);//改成把图片放进imageview里
-
+//        String imgFilePath= Environment.getExternalStorageDirectory().toString()+"/DCIM";
         return convertView;
     }
 
 
-
-    static class ViewHolder{
+    static class ViewHolder {
         ImageView iv;
     }
 }
