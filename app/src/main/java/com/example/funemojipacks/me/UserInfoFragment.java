@@ -1,13 +1,9 @@
 package com.example.funemojipacks.me;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +15,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.funemojipacks.MainActivity;
 import com.example.funemojipacks.R;
-import com.example.funemojipacks.RegisterActivity;
-import com.example.funemojipacks.ShowUserInfoActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

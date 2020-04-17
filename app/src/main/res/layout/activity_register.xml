@@ -2,18 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-<<<<<<< HEAD:app/src/main/res/layout/activity_register.xml
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     tools:context=".RegisterActivity">
-=======
-    android:id="@+id/me_login_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context="com.example.funemojipacks.me.LoginFragment">
->>>>>>> 修改为2个Fragment和1个Activity的跳转:app/src/main/res/layout/me_login.xml
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
@@ -37,11 +29,11 @@
         app:layout_constraintGuide_percent="0.43" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
+        android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -58,7 +50,7 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <TextView
-        android:id="@+id/login_user_name_text"
+        android:id="@+id/register_user_name_text"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginTop="5dp"
@@ -68,18 +60,18 @@
         app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
     <EditText
-        android:id="@+id/login_user_name_edit"
+        android:id="@+id/register_user_name_edit"
         android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
         app:layout_constraintTop_toBottomOf="@+id/login_user_name_text"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:text="@string/sample_login_username"
-        android:textColor="#D6D6D6" />
+        android:text=""
+        android:textColor="#000000" />
 
     <TextView
-        android:id="@+id/login_pwd_text"
+        android:id="@+id/register_pwd_text"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginTop="10dp"
@@ -89,7 +81,7 @@
         android:textColor="#000000" />
 
     <EditText
-        android:id="@+id/login_pwd_edit"
+        android:id="@+id/register_pwd_edit"
         android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_marginTop="1dp"
@@ -98,33 +90,30 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         android:text=""
-        android:textColor="#D6D6D6" />
-
-    <TextView
-        android:layout_width="60dp"
-        android:layout_height="25dp"
-        android:id="@+id/login_view"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:background="#F0F0F0"
-        android:gravity="center_vertical|center"
-        android:text="@string/login_btn_text"
-        android:textColor="#000000"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/guideline6" />
-
-    <TextView
-        android:id="@+id/login_no_account_text"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/login_view"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:text="@string/no_account"
         android:textColor="#000000" />
 
-<<<<<<< HEAD:app/src/main/res/layout/activity_register.xml
+    <TextView
+        android:id="@+id/register_pwd_confirm_text"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        android:text="@string/login_pwd_confirm"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/register_pwd_confirm_edit"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="1dp"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/register_pwd_confirm_text"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        android:text=""
+        android:textColor="#000000" />
+
     <Button
         android:id="@+id/signup_btn"
         android:layout_width="80dp"
@@ -135,21 +124,3 @@
         android:text="@string/regist_btn_text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-=======
-    <TextView
-        android:layout_width="60dp"
-        android:layout_height="25dp"
-        android:id="@+id/me_register_view"
-        android:layout_marginTop="46dp"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/login_view"
-        app:layout_constraintStart_toEndOf="@+id/login_no_account_text"
-        android:background="#F0F0F0"
-        android:gravity="center_vertical|center"
-        android:text="@string/regist_btn_text"
-        android:textColor="#000000"
-        android:textSize="12sp" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
->>>>>>> 修改为2个Fragment和1个Activity的跳转:app/src/main/res/layout/me_login.xml

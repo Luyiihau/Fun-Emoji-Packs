@@ -20,7 +20,6 @@ import com.example.funemojipacks.HomeFragment;
 import com.example.funemojipacks.MainActivity;
 import com.example.funemojipacks.R;
 import com.example.funemojipacks.RegisterActivity;
-import com.example.funemojipacks.ShowUserInfoActivity;
 
 public class LoginFragment extends Fragment {
 
