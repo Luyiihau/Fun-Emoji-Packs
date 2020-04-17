@@ -8,119 +8,14 @@
     android:background="#FFFFFF"
     tools:context="com.example.funemojipacks.MeFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.31" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.43" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
-
     <TextView
-        android:id="@+id/login_user_name_text"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/login_username"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline1" />
-
-    <EditText
-        android:id="@+id/login_user_name_edit"
-        android:layout_width="180dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/login_user_name_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:text="@string/sample_login_username"
-        android:textColor="#D6D6D6" />
-
-    <TextView
-        android:id="@+id/login_pwd_text"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:text="@string/login_pwd"
-        android:textColor="#000000" />
-
-    <EditText
-        android:id="@+id/login_pwd_edit"
-        android:layout_width="180dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="1dp"
-        android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/login_pwd_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:text=""
-        android:textColor="#D6D6D6" />
-
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:text="@string/login_btn_text"/>
-
-    <TextView
-        android:id="@+id/login_no_account_text"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/login_btn"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        android:text="@string/no_account"
-        android:textColor="#000000" />
-
-    <Button
-        android:id="@+id/regist_btn"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="46dp"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/login_btn"
-        app:layout_constraintStart_toEndOf="@+id/login_no_account_text"
-        android:text="@string/regist_btn_text"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="ME PAGE"
+        android:textSize="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

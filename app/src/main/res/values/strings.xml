@@ -16,6 +16,7 @@
     <string name="pwd_diff_tips">Input the same password twice.</string>
     <string name="regist_succ_tips">Regist successfully, please sign in.</string>
     <string name="logout_succ_tips">Sign out successfully.</string>
+    <string name="login_succ_tips">Sign in successfully.</string>
 
 </resources>
 

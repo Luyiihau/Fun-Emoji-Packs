@@ -2,10 +2,12 @@ package com.example.funemojipacks;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +24,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowUserInfoActivity extends AppCompatActivity {
+public class ShowUserInfoActivity extends FragmentActivity {
 
     private Button mLogoutBtn;
     TabLayout mTabLayout;
@@ -30,28 +32,6 @@ public class ShowUserInfoActivity extends AppCompatActivity {
 
     private List<Fragment> list = new ArrayList<Fragment>();
     private List<String> stringList = new ArrayList<>();
-
-    // 底部边框处理
-    private LinearLayout ll_home;
-    private LinearLayout ll_make;
-    private LinearLayout ll_share;
-    private LinearLayout ll_me;
-
-    private ImageView iv_home;
-    private ImageView iv_make;
-    private ImageView iv_share;
-    private ImageView iv_me;
-
-    private TextView tv_home;
-    private TextView tv_make;
-    private TextView tv_share;
-    private TextView tv_me;
-
-    private Fragment homeFragment;
-    private Fragment makeFragment;
-    private Fragment shareFragment;
-    private Fragment meFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +50,7 @@ public class ShowUserInfoActivity extends AppCompatActivity {
         list.add(new ShareLikeFragment());
         list.add(new ShareLikeFragment());
 
-        for(String str: stringList){
+        for (String str : stringList) {
             mTabLayout.addTab(mTabLayout.newTab().setText(str));
         }
 
@@ -87,7 +67,7 @@ public class ShowUserInfoActivity extends AppCompatActivity {
         // Use list to get images
 
 
-        mLogoutBtn = (Button)findViewById(R.id.logout_btn);
+        mLogoutBtn = (Button) findViewById(R.id.logout_btn);
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,8 +76,14 @@ public class ShowUserInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Fragment
+        /*
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.meButtonLinear, );
+        fragmentTransaction.commit();
+         */
     }
-
-
 
 }

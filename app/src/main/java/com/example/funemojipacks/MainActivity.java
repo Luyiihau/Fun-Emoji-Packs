@@ -9,11 +9,15 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.funemojipacks.me.LoginFragment;
+import com.example.funemojipacks.me.UserInfoFragment;
 
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
@@ -40,11 +44,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private Fragment makeFragment;
     private Fragment shareFragment;
     private Fragment meFragment;
+    private Fragment userInfoFragment;
+    private Fragment loginFragment;
 
     private String[] mStrs = {"kk", "kk", "wskx", "wksx"};
     private SearchView mSearchView;
     private ListView lListView;
 
+    public static Boolean isLogin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +95,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     }
 
-    private void initFragment(int index) {
+    public void initFragment(int index) {
         // 管理器要用getSupportFragmentManager获取
         FragmentManager fragmentManager = getSupportFragmentManager();
         // 开启事务
@@ -121,14 +128,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 }
                 break;
             case 3:
-                if (meFragment == null) {
-                    // !!!!!!
-                    // 注册页面
-                    // meFragment = new MeFragment();
-                    meFragment = new MeFragment();
-                    transaction.add(R.id.fl_content, meFragment);
-                } else {
-                    transaction.show(meFragment);
+                if (isLogin){
+                    if (userInfoFragment == null) {
+                        userInfoFragment = new UserInfoFragment();
+                        transaction.add(R.id.fl_content, userInfoFragment);
+                    } else {
+                        transaction.show(userInfoFragment);
+                    }
+                }
+                else{
+                    if (loginFragment == null) {
+                        loginFragment = new LoginFragment();
+                        transaction.add(R.id.fl_content, loginFragment);
+                    } else {
+                        transaction.show(loginFragment);
+                    }
                 }
                 break;
             default:
@@ -151,13 +165,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         if (shareFragment != null) {
             transaction.hide(shareFragment);
         }
-        if (meFragment != null) {
-            transaction.hide(meFragment);
+        if (userInfoFragment != null) {
+            transaction.hide(userInfoFragment);
+        }
+        if (loginFragment != null) {
+            transaction.hide(loginFragment);
         }
 
     }
 
-    private void initEvent() {
+    public void initEvent() {
         // 设置按钮监听
         ll_home.setOnClickListener(this);
         ll_make.setOnClickListener(this);
@@ -166,7 +183,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     }
 
-    private void initView() {
+    public void initView() {
 
         // 底部菜单4个Linearlayout
         this.ll_home = (LinearLayout) findViewById(R.id.home);
@@ -235,4 +252,19 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         tv_me.setTextColor(Color.GRAY);
     }
 
+    // Me页面的底部边框跳转
+    public void getDifferentFragment(int tabNum){
+        if(tabNum == 0){
+            Toast.makeText(getApplicationContext(), "Tab0", Toast.LENGTH_LONG).show();
+        }
+        else if(tabNum == 1){
+            Toast.makeText(getApplicationContext(), "Tab1", Toast.LENGTH_LONG).show();
+        }
+        else if(tabNum == 2){
+            Toast.makeText(getApplicationContext(), "Tab2", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Tab3", Toast.LENGTH_LONG).show();
+        }
+    }
 }
