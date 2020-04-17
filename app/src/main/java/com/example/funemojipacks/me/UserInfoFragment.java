@@ -59,7 +59,7 @@ public class UserInfoFragment extends Fragment {
         }
 
         // ViewPager加适配器Adapter
-        MeAdapter adapter = new MeAdapter(getFragmentManager(), list, stringList);
+        MeAdapter adapter = new MeAdapter(getChildFragmentManager(), list, stringList);
 
         mViewPager.setAdapter(adapter);
 
@@ -80,7 +80,7 @@ public class UserInfoFragment extends Fragment {
                 MainActivity.isLogin = false;
                 // finish();
 
-                FragmentManager fragmentManager = getFragmentManager();
+                FragmentManager fragmentManager = getChildFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                 if (userInfoFragment != null) {

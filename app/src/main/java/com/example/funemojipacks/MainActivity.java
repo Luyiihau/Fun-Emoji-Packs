@@ -91,8 +91,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         // 初始化并设置当前Fragment
         initFragment(0);
 
+    }
 
-
+    @Override
+    protected void onResume(){
+        int id = getIntent().getIntExtra("id", 0);
+        if(id==3){
+            initFragment(3);
+        }
+        super.onResume();
     }
 
     public void initFragment(int index) {

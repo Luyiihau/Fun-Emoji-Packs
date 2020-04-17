@@ -44,7 +44,15 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.regist_succ_tips, Toast.LENGTH_LONG).show();
                     // Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                     // startActivity(intent);
-                    finish();
+
+                    //finish();
+
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    intent.putExtra("id",3);
+                    startActivity(intent);
+
+
+
                 }
             }
         });

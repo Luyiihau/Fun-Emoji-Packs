@@ -76,7 +76,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getContext(), R.string.login_succ_tips, Toast.LENGTH_LONG).show();
                     MainActivity.isLogin = true;
 
-                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentManager fragmentManager = getChildFragmentManager();
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                     if (loginFragment != null) {
