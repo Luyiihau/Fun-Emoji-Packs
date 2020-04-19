@@ -66,8 +66,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // username should be unique
         db.execSQL("create table " + User_TABLE_NAME + "(User_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "User_Name TEXT, User_Pwd TEXT)");
+                + "User_Name TEXT UNIQUE, User_Pwd TEXT)");
         db.execSQL("create table " + Pic_TABLE_NAME + "(Pic_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "Pic_Pos TEXT, Pic_Num_Liked INTEGER)");
         db.execSQL("create table " + Shared_TABLE_NAME + "(Shared_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -167,7 +168,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         // asc 升序， desc 降序
-        Cursor res = db.rawQuery("SELECT * FROM " + tablename + "ORDER BY " + colStr + "DESC", null);
+        // Cursor res = db.rawQuery("SELECT * FROM " + tablename, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + tablename + " ORDER BY " + colStr + " DESC", null);
+        return res;
+    }
+
+    /*
+        Method to find a record
+     */
+    public Cursor findUserRecord (String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT User_Pwd FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
         return res;
     }
 
@@ -185,7 +196,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    // Method to insert a record to the PicTable
+    // Method to update a record to the PicTable
     public boolean updatePic(String id, String picpos, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -195,7 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    // Method to insert a record to the SharedTable
+    // Method to update a record to the SharedTable
     public boolean updateShare(String id, String userid, String picid) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -205,7 +216,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    // Method to insert a record to the LikedTable
+    // Method to update a record to the LikedTable
     public boolean updateLike(String id, String userid, String picid) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -219,8 +230,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Method to delete a record
      */
     public Integer deleteData (String tablename, String id) {
+        // 找出不同表的列id字符串名
+        String colStr = "";
+        if(tablename.equals("User_table")){
+            colStr = Tab1_COL_1;
+        }
+        if(tablename.equals("Pic_table")){
+            colStr = Tab2_COL_1;
+        }
+        if(tablename.equals("Shared_table")){
+            colStr = Tab3_COL_1;
+        }
+        if(tablename.equals("Liked_table")){
+            colStr = Tab4_COL_1;
+        }
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(tablename, "ID = ?", new String[] {id});
+        return db.delete(tablename, colStr + " = ?", new String[] {id});
     }
 
 }
