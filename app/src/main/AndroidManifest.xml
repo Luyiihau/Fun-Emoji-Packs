@@ -34,8 +34,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity android:name=".shareFragment.ShareImageResultActivity"
-                  android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".shareFragment.LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".home.Search"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -8,10 +8,9 @@
     android:baselineAligned="false">
 
     <LinearLayout
-        android:layout_width="426dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/bar"
         android:orientation="horizontal"
         android:padding="5dp" >
 
@@ -21,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="170dp"
-            android:layout_marginTop="8dp"
+
             android:layout_weight="1"
             android:text="Gallery"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -35,7 +34,6 @@
             android:layout_weight="0.1"
             android:textColor="#3A95FD"
             android:textSize="18sp"
-            android:layout_marginTop="5dp"
             android:text="continue" />
 
     </LinearLayout>

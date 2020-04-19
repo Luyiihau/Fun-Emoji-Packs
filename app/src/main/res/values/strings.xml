@@ -28,4 +28,7 @@
     <string name="user_name_wrong_tips"> Check your username. </string>
     <string name="pwd_wrong_tips"> Check your password. </string>
 
+    <string name="user_not_login"> Please login to your account before sharing.</string>
+    <string name="share_complete"> Share Succeed!</string>
+
 </resources>

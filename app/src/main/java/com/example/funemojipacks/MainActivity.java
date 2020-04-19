@@ -64,6 +64,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     };
 
     public static Boolean isLogin = false;
+    public static int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -312,4 +313,5 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             Toast.makeText(getApplicationContext(), "Tab3", Toast.LENGTH_LONG).show();
         }
     }
+
 }

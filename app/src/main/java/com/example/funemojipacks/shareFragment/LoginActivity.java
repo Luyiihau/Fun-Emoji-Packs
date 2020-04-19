@@ -1,57 +1,48 @@
-package com.example.funemojipacks.me;
+package com.example.funemojipacks.shareFragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.os.PersistableBundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.funemojipacks.DatabaseHelper;
-import com.example.funemojipacks.HomeFragment;
 import com.example.funemojipacks.MainActivity;
 import com.example.funemojipacks.R;
 import com.example.funemojipacks.RegisterActivity;
+import com.example.funemojipacks.me.UserInfoFragment;
 
-public class LoginFragment extends Fragment {
+public class LoginActivity extends AppCompatActivity {
 
-    private View view;
     private Context mContext;
-    private TextView mLogin, mLogout;
+    private TextView mLogin, mRegister;
     private EditText vUsername, vPwd;
-    private Fragment userInfoFragment, loginFragment;
     DatabaseHelper memeDb;
-    // private Fragment meFragment;
 
-    /*
-    public LoginFragment(){
-        System.out.println("Login Fragment");
-    }
-
-     */
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.me_login, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.me_login);
+        Toast.makeText(getApplicationContext(), R.string.user_not_login, Toast.LENGTH_SHORT).show();
 
-        // -- get views
-        vUsername = (EditText) view.findViewById(R.id.login_user_name_edit);
-        vPwd = (EditText) view.findViewById(R.id.login_pwd_edit);
-        mLogin = (TextView) view.findViewById(R.id.login_view);
-        mLogout = (TextView) view.findViewById(R.id.me_register_view);
+        vUsername = (EditText) findViewById(R.id.login_user_name_edit);
+        vPwd = (EditText) findViewById(R.id.login_pwd_edit);
+        mLogin = (TextView) findViewById(R.id.login_view);
+        mRegister = (TextView) findViewById(R.id.me_register_view);
 
         // 有待确认
-        memeDb = new DatabaseHelper(getActivity());
+        memeDb = new DatabaseHelper(this);
 
         // -- Listener
         mLogin.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +52,7 @@ public class LoginFragment extends Fragment {
                 String pwd = vPwd.getText().toString();
 
                 if (username.equals("") || pwd.equals("")){
-                    Toast.makeText(getContext(), R.string.log_empty_tips, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.log_empty_tips, Toast.LENGTH_LONG).show();
                 }
                 // add more if conditions here
                 else{
@@ -81,45 +72,26 @@ public class LoginFragment extends Fragment {
                     // System.out.println("Button Click");
                     int isInputCorrect = checkUserRecords(username, pwd);
                     if(isInputCorrect==2){
-                        Toast.makeText(getContext(), R.string.user_name_wrong_tips, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.user_name_wrong_tips, Toast.LENGTH_LONG).show();
                     }
                     else if(isInputCorrect==1){
-                        Toast.makeText(getContext(), R.string.pwd_wrong_tips, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), R.string.pwd_wrong_tips, Toast.LENGTH_LONG).show();
                     }
                     else{
-                        Toast.makeText(getContext(), R.string.login_succ_tips, Toast.LENGTH_LONG).show();
-                        MainActivity.isLogin = true;
-
                         //设置static userID，在share 页面有用
                         Cursor res = memeDb.findUserID(username);
                         res.moveToFirst();
                         MainActivity.userID = res.getInt(0);
 
-                        FragmentManager fragmentManager = getChildFragmentManager();
-                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-                        if (loginFragment != null) {
-                            transaction.hide(loginFragment);
-                        }
-
-                        if (userInfoFragment != null) {
-                            transaction.hide(userInfoFragment);
-                        }
-
-                        if (userInfoFragment == null) {
-                            userInfoFragment = new UserInfoFragment();
-                            transaction.add(R.id.me_login_layout, userInfoFragment);
-                        } else {
-                            transaction.show(userInfoFragment);
-                        }
-                        transaction.commit();
+                        Toast.makeText(getApplicationContext(), R.string.login_succ_tips, Toast.LENGTH_LONG).show();
+                        MainActivity.isLogin = true;
+                        finish();
                     }
                 }
             }
         });
 
-
-        mLogout.setOnClickListener(new View.OnClickListener() {
+        mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
@@ -128,12 +100,11 @@ public class LoginFragment extends Fragment {
 
                 System.out.println("Register a new username");
 
-                Intent intent = new Intent(getActivity(), RegisterActivity.class);
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
             }
         });
 
-        return view;
     }
 
     public Integer checkUserRecords(String name, String pwd) {
@@ -154,5 +125,4 @@ public class LoginFragment extends Fragment {
             }
         }
     }
-
 }

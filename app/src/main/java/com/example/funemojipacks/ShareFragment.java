@@ -16,9 +16,13 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.funemojipacks.me.LoginFragment;
+import com.example.funemojipacks.shareFragment.LoginActivity;
 import com.yalantis.ucrop.UCrop;
 
 import java.util.ArrayList;
@@ -53,15 +57,26 @@ public class ShareFragment extends Fragment {
         continueText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedImages.size() > 0){
-                    Intent intent = new Intent(getContext(), ShareImageResultActivity.class);
-                    intent.putExtra("selectedImages",selectedImages);
+
+                if(MainActivity.isLogin == false){
+                    System.out.println("Not login2");
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivity(intent);
-                    unCheckAllCheckBox();
-                    selectedImages.clear();
+
                 }else{
-                    openAlertDialog();
+                    if(selectedImages.size() > 0){
+                        Intent intent = new Intent(getContext(), ShareImageResultActivity.class);
+                        intent.putExtra("selectedImages",selectedImages);
+                        startActivity(intent);
+                        unCheckAllCheckBox();
+                        selectedImages.clear();
+                    }else{
+                        openAlertDialog();
+                    }
                 }
+
+
+
             }
         });
 

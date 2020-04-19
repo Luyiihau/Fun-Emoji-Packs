@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + User_TABLE_NAME + "(User_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "User_Name TEXT UNIQUE, User_Pwd TEXT)");
         db.execSQL("create table " + Pic_TABLE_NAME + "(Pic_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "Pic_Pos TEXT, Pic_Num_Liked INTEGER)");
+                + "Pic BLOB, Pic_Num_Liked INTEGER)");
         db.execSQL("create table " + Shared_TABLE_NAME + "(Shared_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "Shared_User_ID INTEGER, Shared_Pic_ID INTEGER,"
                 + "FOREIGN KEY(Shared_User_ID) REFERENCES User_table(User_ID),"
@@ -108,10 +108,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Method to insert a record to the PicTable
-    public boolean insertPic(String picpos, String likenum) {
+    public boolean insertPic(byte[] pic, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab2_COL_2, picpos);
+        contentValues.put(Tab2_COL_2, pic);
         contentValues.put(Tab2_COL_3, likenum);
         long result = db.insert(Pic_TABLE_NAME, null, contentValues);
         if (result == -1)
@@ -183,6 +183,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /*
+        Method to find userID
+        input: username
+     */
+    public Cursor findUserID (String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT User_ID FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
+        return res;
+    }
+
+    /*
+        Method to get just added picture ID
+     */
+
+    public int getJustAddedPicID(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cur=db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME,null);
+        cur.moveToFirst();
+        int id = cur.getInt(0);
+        return id;
+    }
+
+
+
+
+    /*
         Update Records
      */
 
@@ -197,10 +222,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Method to update a record to the PicTable
-    public boolean updatePic(String id, String picpos, String likenum) {
+    public boolean updatePic(String id, byte[] pic, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab2_COL_2, picpos);
+        contentValues.put(Tab2_COL_2, pic);
         contentValues.put(Tab2_COL_3, likenum);
         db.update(Pic_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
         return true;
@@ -225,6 +250,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(Liked_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
         return true;
     }
+
+
 
     /*
         Method to delete a record

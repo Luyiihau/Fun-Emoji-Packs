@@ -5,18 +5,28 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.funemojipacks.DatabaseHelper;
+import com.example.funemojipacks.MainActivity;
 import com.example.funemojipacks.R;
 import com.example.funemojipacks.ShareFragment;
 import com.yalantis.ucrop.UCrop;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class ShareImageResultActivity extends AppCompatActivity implements ResultImageAdapter.OnClickListener{
@@ -26,11 +36,13 @@ public class ShareImageResultActivity extends AppCompatActivity implements Resul
     int position;
     TextView shareText;
     ImageView image;
+    DatabaseHelper memeDb;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.share_image_result);
+        memeDb = new DatabaseHelper(this);
 
         selectedImages = (ArrayList<ImageModel>) getIntent().getSerializableExtra("selectedImages");
         mRecyclerView = findViewById(R.id.share_result_recyclerView);
@@ -54,7 +66,25 @@ public class ShareImageResultActivity extends AppCompatActivity implements Resul
         shareText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("click");
                 //这里处理分享图片逻辑
+                for(ImageModel image: selectedImages){
+                    String imagePath = image.getPath();
+
+                    Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                    bitmap = myAdapter.changeBitmapSize(bitmap);
+
+                    //转换成byte
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] imageByte = baos.toByteArray();
+                    bitmap.recycle();
+
+                    memeDb.insertPic(imageByte, "0");
+                    memeDb.insertShare(String.valueOf(MainActivity.userID), String.valueOf(memeDb.getJustAddedPicID()));
+                    Toast.makeText(getApplicationContext(), R.string.share_complete, Toast.LENGTH_LONG).show();
+                    finish();
+                }
             }
         });
 
