@@ -18,5 +18,9 @@
     <string name="logout_succ_tips">Sign out successfully.</string>
     <string name="login_succ_tips">Sign in successfully.</string>
 
+    <string name="user_name_exist_tips"> Username already exists, please choose another one.</string>
+    <string name="user_name_wrong_tips"> Check your username. </string>
+    <string name="pwd_wrong_tips"> Check your password. </string>
+
 </resources>
 
