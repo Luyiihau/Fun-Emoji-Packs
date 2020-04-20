@@ -6,7 +6,34 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.lang.reflect.Method;
+
+/*
+e.g.
+Write in MainActivity.java
+
+
+DatabaseHelper memeDb;
+
+onCreate(){
+
+...
+memeDb = new DatabaseHelper(this);
+
+}
+
+public void addUser(View view) {
+    boolean isInserted = memeDb.insertUser(username.getText().toString(),
+    pwd.getText().toString());
+    if (isInserted)
+        System.out.printlin("A new record is created.");
+    else
+        System.out.printlin("Failed to add a new record.");
+
+ */
+
 public class DatabaseHelper extends SQLiteOpenHelper {
+
     private static final String DATABASE_NAME = "Meme.db";
 
     private static final String User_TABLE_NAME = "User_table";

@@ -1,5 +1,8 @@
 package com.example.funemojipacks;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.funemojipacks.me.LoginFragment;
+import com.example.funemojipacks.me.UserInfoFragment;
 
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
@@ -40,11 +48,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private Fragment makeFragment;
     private Fragment shareFragment;
     private Fragment meFragment;
+    private Fragment userInfoFragment;
+    private Fragment loginFragment;
 
     private String[] mStrs = {"kk", "kk", "wskx", "wksx"};
     private SearchView mSearchView;
     private ListView lListView;
 
+    //获取sd卡照片读取权限
+    private static final int REQUEST_CODE = 1;
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    private static String[] PERMISSIONS_REQ = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
+
+    public static Boolean isLogin = false;
+    public static int userID;
 
     public static Boolean isLogin=false;
     public static int userID;
@@ -52,6 +72,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        verifyPermissions(this);
 
 
         // 初始化控件
@@ -62,7 +83,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         initFragment(0);
 
 
+    }
 
+    @Override
+    protected void onResume() {
+        int id = getIntent().getIntExtra("id", 0);
+        if (id == 3) {
+            initFragment(3);
+        }
+        super.onResume();
     }
     @Override
     protected void onResume() {
@@ -92,25 +121,38 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             case 1:
                 if (makeFragment == null) {
                     makeFragment = new MakeFragment();
-                    transaction.add(R.id.fl_content, makeFragment);
+                    transaction.add(R.id.fl_content, makeFragment,"makefragment");//加入tag
                 } else {
                     transaction.show(makeFragment);
                 }
                 break;
             case 2:
-                if (shareFragment == null) {
-                    shareFragment = new ShareFragment();
-                    transaction.add(R.id.fl_content, shareFragment);
-                } else {
-                    transaction.show(shareFragment);
-                }
+//                if (shareFragment == null) {
+//                    shareFragment = new ShareFragment();
+//                    transaction.add(R.id.fl_content, shareFragment);
+//                } else {
+//                    transaction.show(shareFragment);
+//                }
+                //因为每次进入share页面都会读取系统相册，所以更改为以下两行，因此share页会重新完成fragment生命周期
+                shareFragment = new ShareFragment();
+                transaction.add(R.id.fl_content, shareFragment);
                 break;
             case 3:
-                if (meFragment == null) {
-                    meFragment = new MeFragment();
-                    transaction.add(R.id.fl_content, meFragment);
-                } else {
-                    transaction.show(meFragment);
+                if (isLogin){
+                    if (userInfoFragment == null) {
+                        userInfoFragment = new UserInfoFragment();
+                        transaction.add(R.id.fl_content, userInfoFragment);
+                    } else {
+                        transaction.show(userInfoFragment);
+                    }
+                }
+                else{
+                    if (loginFragment == null) {
+                        loginFragment = new LoginFragment();
+                        transaction.add(R.id.fl_content, loginFragment);
+                    } else {
+                        transaction.show(loginFragment);
+                    }
                 }
                 break;
             default:
@@ -133,13 +175,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         if (shareFragment != null) {
             transaction.hide(shareFragment);
         }
-        if (meFragment != null) {
-            transaction.hide(meFragment);
+        if (userInfoFragment != null) {
+            transaction.hide(userInfoFragment);
+        }
+        if (loginFragment != null) {
+            transaction.hide(loginFragment);
         }
 
     }
 
-    private void initEvent() {
+    public void initEvent() {
         // 设置按钮监听
         ll_home.setOnClickListener(this);
         ll_make.setOnClickListener(this);
@@ -148,7 +193,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     }
 
-    private void initView() {
+    public void initView() {
 
         // 底部菜单4个Linearlayout
         this.ll_home = (LinearLayout) findViewById(R.id.home);
@@ -215,6 +260,43 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         tv_make.setTextColor(Color.GRAY);
         tv_share.setTextColor(Color.GRAY);
         tv_me.setTextColor(Color.GRAY);
+    }
+
+
+    private static boolean verifyPermissions(Activity activity) {
+        // Check if we have write permission
+        int read_permission = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        int write_permission = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (read_permission != PackageManager.PERMISSION_GRANTED && write_permission !=
+                PackageManager.PERMISSION_GRANTED ) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_REQ,
+                    REQUEST_CODE_PERMISSION
+            );
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // Me页面的底部边框跳转
+    public void getDifferentFragment(int tabNum){
+        if(tabNum == 0){
+            Toast.makeText(getApplicationContext(), "Tab0", Toast.LENGTH_LONG).show();
+        }
+        else if(tabNum == 1){
+            Toast.makeText(getApplicationContext(), "Tab1", Toast.LENGTH_LONG).show();
+        }
+        else if(tabNum == 2){
+            Toast.makeText(getApplicationContext(), "Tab2", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Tab3", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

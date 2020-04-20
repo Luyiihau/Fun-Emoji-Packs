@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Fun Emoji Packs</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="make_text_inputhint">Please input the text you want.</string>
+
+    <string name="profile_img">This is user img profile.</string>
     <string name="login_username">Username/E-mail: </string>
     <string name="sample_login_username">abc</string>
     <string name="login_pwd">Password: </string>
@@ -8,6 +14,7 @@
     <string name="no_account">Do not have a account? </string>
     <string name="regist_btn_text">Sign up</string>
     <string name="logout_btn_text">Sign out</string>
+
     <string name="log_empty_tips">Username and password could not be empty.</string>
     <string name="pwd_diff_tips">Input the same password twice.</string>
     <string name="regist_succ_tips">Regist successfully, please sign in.</string>
@@ -19,4 +26,5 @@
     <string name="pwd_wrong_tips"> Check your password. </string>
 
     <string name="user_not_login"> Please login to your account before sharing.</string>
+    <string name="share_complete"> Share Succeed!</string>
 </resources>
