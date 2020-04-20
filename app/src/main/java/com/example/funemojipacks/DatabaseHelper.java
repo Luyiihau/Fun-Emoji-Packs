@@ -32,6 +32,11 @@ public void addUser(View view) {
 
  */
 
+/*
+多行注释：操作（如 插入数据）
+单行注释：具体表的操作
+ */
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Meme.db";
@@ -174,28 +179,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /*
-        Method to find a record
+        Find records
      */
+
+    // Method to find password in the user table
     public Cursor findUserRecord (String username) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT User_Pwd FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
         return res;
     }
 
-    /*
-        Method to find userID
-        input: username
-     */
+    // Method to find userID in the user table
+    // input: username
     public Cursor findUserID (String username) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT User_ID FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
         return res;
     }
 
-    /*
-        Method to get just added picture ID
-     */
-
+    // Method to get just added picture ID
     public int getJustAddedPicID(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cur=db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME,null);
@@ -204,7 +206,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-
+    // Method to get picture shared by specific user
+    public Cursor getSharedImg(String userid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT Pic_table.Pic_Pos, Pic_table.Pic_ID FROM Pic_table, Shared_table"
+                + " WHERE Shared_table.Shared_User_ID = " +  "'" + userid +  "'"
+                + " AND Shared_table.Shared_Pic_ID = Pic_table.Pic_ID", null);
+        return res;
+    }
 
 
     /*

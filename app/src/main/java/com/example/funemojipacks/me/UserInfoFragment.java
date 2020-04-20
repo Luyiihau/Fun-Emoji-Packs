@@ -1,5 +1,8 @@
 package com.example.funemojipacks.me;
 
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.funemojipacks.DatabaseHelper;
 import com.example.funemojipacks.MainActivity;
 import com.example.funemojipacks.R;
 import com.google.android.material.tabs.TabLayout;
@@ -28,6 +32,11 @@ public class UserInfoFragment extends Fragment {
     private TextView mLogout;
     private View view;
 
+    DatabaseHelper memeDb;
+    public static ArrayList<Bitmap> pics;
+
+    final
+
     private List<Fragment> list = new ArrayList<Fragment>();
     private List<String> stringList = new ArrayList<>();
 
@@ -38,6 +47,8 @@ public class UserInfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.me_user_info, container, false);
+
+        memeDb = new DatabaseHelper(getActivity());
 
         // initView();
 
@@ -51,13 +62,14 @@ public class UserInfoFragment extends Fragment {
         stringList.add("Shared");
         stringList.add("Liked");
 
-        list.add(new ShareLikeFragment());
-        list.add(new ShareLikeFragment());
+        list.add(new ShareLikeFragment(1));
+        list.add(new ShareLikeFragment(2));
 
         for (String str : stringList) {
             mTabLayout.addTab(mTabLayout.newTab().setText(str));
         }
 
+        getUserSharedImg();
         // ViewPager加适配器Adapter
         MeAdapter adapter = new MeAdapter(getChildFragmentManager(), list, stringList);
 
@@ -100,4 +112,26 @@ public class UserInfoFragment extends Fragment {
 
         return view;
     }
+
+    // 0
+    public void getUserSharedImg() {
+
+        Cursor res = memeDb.getSharedImg(String.valueOf(MainActivity.userID));
+
+        pics = new ArrayList<>();
+
+        if (res.getCount() == 0) {
+            Toast.makeText(getContext(), "You have not shared anything! Come and Share!"
+                    ,Toast.LENGTH_LONG).show();
+        }
+        else {
+            while (res.moveToNext()) {
+                byte[] in = res.getBlob(res.getColumnIndex("Pic_Pos"));
+                pics.add(BitmapFactory.decodeByteArray(in, 0, in.length));
+            }
+        }
+    }
+
+    // 1
+
 }
