@@ -46,36 +46,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     private ListView lListView;
 
 
+    public static Boolean isLogin=false;
+    public static int userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        mSearchView = (SearchView) findViewById(R.id.searchView);
-//        lListView = (ListView) findViewById(R.id.listView);
-//        lListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrs));
-//        lListView.setTextFilterEnabled(false);
-
-
-//        // 设置搜索文本监听
-//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            // 当点击搜索按钮时触发该方法
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            // 当搜索内容改变时触发该方法
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                if (!TextUtils.isEmpty(newText)){
-//                    lListView.setFilterText(newText);
-//                }else{
-//                    lListView.clearTextFilter();
-//                }
-//                return false;
-//            }
-//        });
 
         // 初始化控件
         initView();
@@ -86,6 +63,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 
 
+    }
+    @Override
+    protected void onResume() {
+        int id = getIntent().getIntExtra("id", 0);
+        if (id == 3) {
+            initFragment(3);
+        }
+        super.onResume();
     }
 
     private void initFragment(int index) {

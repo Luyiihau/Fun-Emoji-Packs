@@ -1,6 +1,7 @@
 package com.example.funemojipacks;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.funemojipacks.home.HomeAdapter;
+//import com.example.funemojipacks.home.LoginActivity;
 import com.example.funemojipacks.home.home_hottest;
 import com.example.funemojipacks.home.home_hottest_v2;
 import com.example.funemojipacks.home.home_hottest_v3;
@@ -41,7 +43,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_page, container, false);
+        view=inflater.inflate(R.layout.home_page,container,false);
+        initView();
+        return view;
     }
 
     private void initView() {
@@ -64,8 +68,14 @@ public class HomeFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        if (!MainActivity.isLogin) {
+//            System.out.println("Not login2");
+//            Intent intent = new Intent(getContext(), LoginActivity.class);
+//            startActivity(intent);
+//        } else
+//            initView();
+//    }
 }
