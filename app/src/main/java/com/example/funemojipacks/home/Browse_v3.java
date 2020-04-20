@@ -1,14 +1,10 @@
 package com.example.funemojipacks.home;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -18,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.example.funemojipacks.DatabaseHelper;
 import com.example.funemojipacks.R;
@@ -30,18 +25,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 
-public class Browse_v2 extends AppCompatActivity {
+public class Browse_v3 extends AppCompatActivity {
     //    Context context;
     private ImageView imageView;
-    private Button downBtn;
-    private FileInputStream fis;
-    private String image;
+    private byte[] image;
     private DatabaseHelper memeDb;
+    private int pic_id;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.browse_page);
+        memeDb = new DatabaseHelper(this);
 
         imageView = findViewById(R.id.image_view);
 //        downBtn = findViewById(R.id.downBtn);
@@ -49,14 +44,11 @@ public class Browse_v2 extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        image = bundle.getString("image");
-        try {
-            fis = new FileInputStream(new File(image));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Bitmap bmp = BitmapFactory.decodeStream(fis);
+        image = bundle.getByteArray("image");
+        assert image != null;
+        Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
         imageView.setImageBitmap(bmp);
+        pic_id = bundle.getInt("pic_id");
     }
 
     public void onClickSave(View v) {
@@ -68,10 +60,9 @@ public class Browse_v2 extends AppCompatActivity {
         imageView.destroyDrawingCache();
     }
 
-//    public void onClickLike(View v) {
-//        memeDb=new DatabaseHelper(this);
-//        Cursor res=
-//    }
+    public void onClickLike(View v) {
+
+    }
 
     public void savePicture(Bitmap bitmap, String filename) {
         if (bitmap == null || filename == null)

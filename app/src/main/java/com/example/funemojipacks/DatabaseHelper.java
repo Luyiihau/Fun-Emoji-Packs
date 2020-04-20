@@ -9,24 +9,24 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Meme.db";
 
-    private static final String User_TABLE_NAME = "User_table";//用户表
-    private static final String Pic_TABLE_NAME = "Pic_table";//图片表
-    private static final String Shared_TABLE_NAME = "Shared_table";//分享表
-    private static final String Liked_TABLE_NAME = "Liked_table";//点赞表
+    private static final String User_TABLE_NAME = "User_table";
+    private static final String Pic_TABLE_NAME = "Pic_table";
+    private static final String Shared_TABLE_NAME = "Shared_table";
+    private static final String Liked_TABLE_NAME = "Liked_table";
 
-    private static final String Tab1_COL_1 = "User_ID";//用户ID
-    private static final String Tab1_COL_2 = "User_Name";//用户名称
-    private static final String Tab1_COL_3 = "User_Pwd";//用户密码
+    private static final String Tab1_COL_1 = "User_ID";
+    private static final String Tab1_COL_2 = "User_Name";
+    private static final String Tab1_COL_3 = "User_Pwd";
 
-    private static final String Tab2_COL_1 = "Pic_ID";//图片ID
-    private static final String Tab2_COL_2 = "Pic_Pos";//图片存放路径
-    private static final String Tab2_COL_3 = "Pic_Num_Liked";//该图片被点赞的数量
+    private static final String Tab2_COL_1 = "Pic_ID";
+    private static final String Tab2_COL_2 = "Pic_Pos";
+    private static final String Tab2_COL_3 = "Pic_Num_Liked";
 
-    private static final String Tab3_COL_1 = "Shared_ID";//分享表
+    private static final String Tab3_COL_1 = "Shared_ID";
     private static final String Tab3_COL_2 = "Shared_User_ID";// Foreign Key
     private static final String Tab3_COL_3 = "Shared_Pic_ID";// Foreign Key
 
-    private static final String Tab4_COL_1 = "Liked_ID";//点赞表
+    private static final String Tab4_COL_1 = "Liked_ID";
     private static final String Tab4_COL_2 = "Liked_User_ID";// Foreign Key
     private static final String Tab4_COL_3 = "Liked_Pic_ID";// Foreign Key
 
@@ -39,10 +39,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // username should be unique
         db.execSQL("create table " + User_TABLE_NAME + "(User_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "User_Name TEXT, User_Pwd TEXT)");
+                + "User_Name TEXT UNIQUE, User_Pwd TEXT)");
         db.execSQL("create table " + Pic_TABLE_NAME + "(Pic_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "Pic_Pos TEXT, Pic_Num_Liked INTEGER)");
+                + "Pic BLOB, Pic_Num_Liked INTEGER)");
         db.execSQL("create table " + Shared_TABLE_NAME + "(Shared_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "Shared_User_ID INTEGER, Shared_Pic_ID INTEGER,"
                 + "FOREIGN KEY(Shared_User_ID) REFERENCES User_table(User_ID),"
@@ -73,17 +74,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(Tab1_COL_2, username);
         contentValues.put(Tab1_COL_3, userpwd);
         long result = db.insert(User_TABLE_NAME, null, contentValues);
-        return result != -1;
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     // Method to insert a record to the PicTable
-    public boolean insertPic(String picpos, String likenum) {
+    public boolean insertPic(byte[] pic, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab2_COL_2, picpos);
+        contentValues.put(Tab2_COL_2, pic);
         contentValues.put(Tab2_COL_3, likenum);
         long result = db.insert(Pic_TABLE_NAME, null, contentValues);
-        return result != -1;
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     // Method to insert a record to the SharedTable
@@ -93,7 +100,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(Tab3_COL_2, userid);
         contentValues.put(Tab3_COL_3, picid);
         long result = db.insert(Shared_TABLE_NAME, null, contentValues);
-        return result != -1;
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     // Method to insert a record to the LikedTable
@@ -103,7 +113,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(Tab4_COL_2, userid);
         contentValues.put(Tab4_COL_3, picid);
         long result = db.insert(Liked_TABLE_NAME, null, contentValues);
-        return result != -1;
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     /*
@@ -113,33 +126,70 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllData(String tablename) {
         // 找出不同表的列id字符串名
         String colStr = "";
-        if (tablename.equals("User_table")) {
+        if(tablename.equals("User_table")){
             colStr = Tab1_COL_1;
         }
-        if (tablename.equals("Pic_table")) {
+        if(tablename.equals("Pic_table")){
             colStr = Tab2_COL_1;
         }
-        if (tablename.equals("Shared_table")) {
+        if(tablename.equals("Shared_table")){
             colStr = Tab3_COL_1;
         }
-        if (tablename.equals("Liked_table")) {
+        if(tablename.equals("Liked_table")){
             colStr = Tab4_COL_1;
         }
 
         SQLiteDatabase db = this.getWritableDatabase();
         // asc 升序， desc 降序
-        Cursor res = db.rawQuery("SELECT * FROM " + tablename + "ORDER BY " + colStr + "DESC", null);
+        // Cursor res = db.rawQuery("SELECT * FROM " + tablename, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + tablename + " ORDER BY " + colStr + " DESC", null);
         return res;
     }
 
-    public Cursor home_getLikeDesc(String tablename) {
-        if (!tablename.equals("Pic_table"))
-            tablename = Pic_TABLE_NAME;
-        String colStr = Tab2_COL_1;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + tablename + "ORDER BY " + colStr + "DESC", null);
+    public Cursor home_getLikeDesc(String tablename)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        if(!tablename.equals(Pic_TABLE_NAME))
+            tablename=Pic_TABLE_NAME;
+        String colStr=Tab2_COL_3;
+        //根据点赞次数降序排列
+        Cursor res=db.rawQuery("SELECT * FROM " + tablename + " ORDER BY " + colStr + " DESC", null);
         return res;
     }
+
+    /*
+        Method to find a record
+     */
+    public Cursor findUserRecord (String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT User_Pwd FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
+        return res;
+    }
+
+    /*
+        Method to find userID
+        input: username
+     */
+    public Cursor findUserID (String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT User_ID FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
+        return res;
+    }
+
+    /*
+        Method to get just added picture ID
+     */
+
+    public int getJustAddedPicID(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cur=db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME,null);
+        cur.moveToFirst();
+        int id = cur.getInt(0);
+        return id;
+    }
+
+
+
 
     /*
         Update Records
@@ -151,46 +201,62 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab1_COL_2, username);
         contentValues.put(Tab1_COL_3, userpwd);
-        db.update(User_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        db.update(User_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
         return true;
     }
 
-    // Method to insert a record to the PicTable
-    public boolean updatePic(String id, String picpos, String likenum) {
+    // Method to update a record to the PicTable
+    public boolean updatePic(String id, byte[] pic, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab2_COL_2, picpos);
+        contentValues.put(Tab2_COL_2, pic);
         contentValues.put(Tab2_COL_3, likenum);
-        db.update(Pic_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        db.update(Pic_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
         return true;
     }
 
-    // Method to insert a record to the SharedTable
+    // Method to update a record to the SharedTable
     public boolean updateShare(String id, String userid, String picid) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab3_COL_2, userid);
         contentValues.put(Tab3_COL_3, picid);
-        db.update(Shared_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        db.update(Shared_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
         return true;
     }
 
-    // Method to insert a record to the LikedTable
+    // Method to update a record to the LikedTable
     public boolean updateLike(String id, String userid, String picid) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab4_COL_2, userid);
         contentValues.put(Tab4_COL_3, picid);
-        db.update(Liked_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        db.update(Liked_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
         return true;
     }
+
+
 
     /*
         Method to delete a record
      */
-    public Integer deleteData(String tablename, String id) {
+    public Integer deleteData (String tablename, String id) {
+        // 找出不同表的列id字符串名
+        String colStr = "";
+        if(tablename.equals("User_table")){
+            colStr = Tab1_COL_1;
+        }
+        if(tablename.equals("Pic_table")){
+            colStr = Tab2_COL_1;
+        }
+        if(tablename.equals("Shared_table")){
+            colStr = Tab3_COL_1;
+        }
+        if(tablename.equals("Liked_table")){
+            colStr = Tab4_COL_1;
+        }
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(tablename, "ID = ?", new String[]{id});
+        return db.delete(tablename, colStr + " = ?", new String[] {id});
     }
 
 }

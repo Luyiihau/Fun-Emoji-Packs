@@ -54,6 +54,10 @@ public class Browse extends AppCompatActivity {
         imageView.destroyDrawingCache();
     }
 
+    public void onClickLike(View v){
+
+    }
+
     public void savePicture(Bitmap bitmap, String filename) {
         if (bitmap == null || filename == null)
             return;

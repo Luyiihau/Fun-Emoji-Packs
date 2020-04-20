@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.funemojipacks.home.HomeAdapter;
 import com.example.funemojipacks.home.home_hottest;
 import com.example.funemojipacks.home.home_hottest_v2;
+import com.example.funemojipacks.home.home_hottest_v3;
 import com.example.funemojipacks.home.home_meme;
 import com.example.funemojipacks.home.home_newest;
 import com.google.android.material.tabs.TabLayout;
@@ -32,20 +33,22 @@ public class HomeFragment extends Fragment {
     private List<Fragment> list = new ArrayList<Fragment>();
     private List<String> stringList = new ArrayList<>();
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.home_page, container, false);
-        initView();
-        return view;
+        return inflater.inflate(R.layout.home_page, container, false);
     }
 
     private void initView() {
         viewPager = (ViewPager) view.findViewById(R.id.homeviewPager);
         list.add(new home_meme());
 //        list.add(new home_hottest());
-        list.add(new home_hottest_v2());
+        list.add(new home_hottest_v3());
         list.add(new home_newest());
 
         stringList.add("MEME");
