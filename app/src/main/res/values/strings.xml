@@ -7,7 +7,7 @@
 
     <string name="profile_img">This is user img profile.</string>
     <string name="login_username">Username/E-mail: </string>
-    <string name="sample_login_username">abc</string>
+    <string name="sample_login_username">user1</string>
     <string name="login_pwd">Password: </string>
     <string name="login_pwd_confirm">Repeat your Password: </string>
     <string name="login_btn_text">Sign in</string>

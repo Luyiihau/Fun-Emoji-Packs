@@ -69,7 +69,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         android:text="@string/sample_login_username"
-        android:textColor="#D6D6D6" />
+        android:textColor="#363636" />
 
     <TextView
         android:id="@+id/login_pwd_text"
@@ -91,7 +91,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         android:text=""
-        android:textColor="#D6D6D6" />
+        android:textColor="#363636" />
 
     <TextView
         android:layout_width="60dp"

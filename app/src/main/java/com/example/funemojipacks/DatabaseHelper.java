@@ -94,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Insert Records
      */
 
-    // Method to insert a record to the UserTable
+   // Method to insert a record to the UserTable
     public boolean insertUser(String username, String userpwd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -153,16 +153,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllData(String tablename) {
         // 找出不同表的列id字符串名
         String colStr = "";
-        if (tablename.equals("User_table")) {
+        if(tablename.equals("User_table")){
             colStr = Tab1_COL_1;
         }
-        if (tablename.equals("Pic_table")) {
+        if(tablename.equals("Pic_table")){
             colStr = Tab2_COL_1;
         }
-        if (tablename.equals("Shared_table")) {
+        if(tablename.equals("Shared_table")){
             colStr = Tab3_COL_1;
         }
-        if (tablename.equals("Liked_table")) {
+        if(tablename.equals("Liked_table")){
             colStr = Tab4_COL_1;
         }
 
@@ -195,9 +195,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
         Method to find a record
      */
-    public Cursor findUserRecord(String username) {
+    public Cursor findUserRecord (String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT User_Pwd FROM " + User_TABLE_NAME + " WHERE User_Name = '" + username + "'", null);
+        Cursor res = db.rawQuery("SELECT User_Pwd FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
         return res;
     }
 
@@ -205,9 +205,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Method to find userID
         input: username
      */
-    public Cursor findUserID(String username) {
+    public Cursor findUserID (String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT User_ID FROM " + User_TABLE_NAME + " WHERE User_Name = '" + username + "'", null);
+        Cursor res = db.rawQuery("SELECT User_ID FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
         return res;
     }
 
@@ -215,15 +215,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Method to get just added picture ID
      */
 
-    public int getJustAddedPicID() {
+    public int getJustAddedPicID(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cur = db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME, null);
+        Cursor cur=db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME,null);
         cur.moveToFirst();
         int id = cur.getInt(0);
         return id;
     }
 
-
+    // Method to get picture shared by specific user
+    public Cursor getSharedImg(String userid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT Pic_table.Pic_Pos, Pic_table.Pic_ID FROM Pic_table, Shared_table"
+                + " WHERE Shared_table.Shared_User_ID = " +  "'" + userid +  "'"
+                + " AND Shared_table.Shared_Pic_ID = Pic_table.Pic_ID", null);
+        return res;
+    }
 
 
     /*
@@ -231,12 +238,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
 
     // Method to update a record to the UserTable
-    public boolean updateUser(String id, String username, String userpwd) {
+    public boolean updateUser(String userid, String username, String userpwd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab1_COL_2, username);
         contentValues.put(Tab1_COL_3, userpwd);
-        db.update(User_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        db.update(User_TABLE_NAME, contentValues, "User_ID = ?", new String[] {userid});
         return true;
     }
 
@@ -246,51 +253,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab2_COL_2, pic);
         contentValues.put(Tab2_COL_3, likenum);
-        db.update(Pic_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        db.update(Pic_TABLE_NAME, contentValues, "Pic_ID = ?", new String[] {id});
         return true;
     }
 
     // Method to update a record to the SharedTable
-    public boolean updateShare(String id, String userid, String picid) {
+    public boolean updateShare(String picid, byte[] pic) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab3_COL_2, userid);
+        // contentValues.put(Tab3_COL_2, userid);
         contentValues.put(Tab3_COL_3, picid);
-        db.update(Shared_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        db.update(Shared_TABLE_NAME, contentValues, "Shared_ID = ?", new String[] {picid});
         return true;
     }
 
     // Method to update a record to the LikedTable
-    public boolean updateLike(String id, String userid, String picid) {
+    public boolean updateLike(String picid, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab4_COL_2, userid);
-        contentValues.put(Tab4_COL_3, picid);
-        db.update(Liked_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
+        contentValues.put(Tab4_COL_2, picid);
+        contentValues.put(Tab4_COL_3, likenum);
+        db.update(Liked_TABLE_NAME, contentValues, "Shared_Pic_ID = ?", new String[] {picid});
         return true;
     }
+
 
 
     /*
         Method to delete a record
      */
-    public Integer deleteData(String tablename, String id) {
+    public Integer deleteData (String tablename, String id) {
         // 找出不同表的列id字符串名
         String colStr = "";
-        if (tablename.equals("User_table")) {
+        if(tablename.equals("User_table")){
             colStr = Tab1_COL_1;
         }
-        if (tablename.equals("Pic_table")) {
+        if(tablename.equals("Pic_table")){
             colStr = Tab2_COL_1;
         }
-        if (tablename.equals("Shared_table")) {
+        if(tablename.equals("Shared_table")){
             colStr = Tab3_COL_1;
         }
-        if (tablename.equals("Liked_table")) {
+        if(tablename.equals("Liked_table")){
             colStr = Tab4_COL_1;
         }
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(tablename, colStr + " = ?", new String[]{id});
+        return db.delete(tablename, colStr + " = ?", new String[] {id});
     }
 
 }

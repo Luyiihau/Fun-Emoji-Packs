@@ -1,6 +1,7 @@
 package com.example.funemojipacks.me;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,27 +15,30 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.example.funemojipacks.R;
 
+import java.util.ArrayList;
+
 public class ShareLikeAdapter extends BaseAdapter {
 
     private Context context;
-    private int[] imageUrls;
+    private ArrayList<Bitmap> images;
     private ImageView mImageView;
-    // private View mView;
 
-    public ShareLikeAdapter(Context context, int[] imageUrls){
+    public ShareLikeAdapter(Context context, ArrayList<Bitmap> images){
         super();
         this.context = context;
-        this.imageUrls = imageUrls;
-    }
-
-    @Override
-    public int getCount() {
-        return imageUrls.length;
+        this.images = images;
+        System.out.println("The length!");
+        System.out.println(images.size());
     }
 
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    @Override
+    public int getCount() {
+        return images.size();
     }
 
     @Override
@@ -47,6 +51,8 @@ public class ShareLikeAdapter extends BaseAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         // mImageView = (ImageView) findViewById(R.id.meTabLayout);
 
+        System.out.println("What Happened Here!");
+        System.out.println(images.get(0));
 
         //构建静态ViewHolder 复制后面的静态类再用 否则会调用RecyclerView中的ViewHolder
         ShareLikeAdapter.ViewHolder holder = null;
@@ -64,7 +70,7 @@ public class ShareLikeAdapter extends BaseAdapter {
         //Fragment 嵌套 GridView https://www.jianshu.com/p/56c17ed179fa
         Glide
                 .with(context)
-                .load(imageUrls[position])
+                .load(images.get(position))
                 .into(holder.iv);
 
         return convertView;
