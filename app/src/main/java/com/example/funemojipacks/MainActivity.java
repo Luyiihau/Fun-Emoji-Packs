@@ -66,8 +66,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     public static Boolean isLogin = false;
     public static int userID;
 
-    public static Boolean isLogin=false;
-    public static int userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,14 +83,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     }
 
-    @Override
-    protected void onResume() {
-        int id = getIntent().getIntExtra("id", 0);
-        if (id == 3) {
-            initFragment(3);
-        }
-        super.onResume();
-    }
     @Override
     protected void onResume() {
         int id = getIntent().getIntExtra("id", 0);
@@ -121,7 +111,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             case 1:
                 if (makeFragment == null) {
                     makeFragment = new MakeFragment();
-                    transaction.add(R.id.fl_content, makeFragment,"makefragment");//加入tag
+                    transaction.add(R.id.fl_content, makeFragment, "makefragment");//加入tag
                 } else {
                     transaction.show(makeFragment);
                 }
@@ -138,15 +128,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 transaction.add(R.id.fl_content, shareFragment);
                 break;
             case 3:
-                if (isLogin){
+                if (isLogin) {
                     if (userInfoFragment == null) {
                         userInfoFragment = new UserInfoFragment();
                         transaction.add(R.id.fl_content, userInfoFragment);
                     } else {
                         transaction.show(userInfoFragment);
                     }
-                }
-                else{
+                } else {
                     if (loginFragment == null) {
                         loginFragment = new LoginFragment();
                         transaction.add(R.id.fl_content, loginFragment);
@@ -270,7 +259,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         int write_permission = ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (read_permission != PackageManager.PERMISSION_GRANTED && write_permission !=
-                PackageManager.PERMISSION_GRANTED ) {
+                PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
                     activity,
@@ -284,17 +273,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     }
 
     // Me页面的底部边框跳转
-    public void getDifferentFragment(int tabNum){
-        if(tabNum == 0){
+    public void getDifferentFragment(int tabNum) {
+        if (tabNum == 0) {
             Toast.makeText(getApplicationContext(), "Tab0", Toast.LENGTH_LONG).show();
-        }
-        else if(tabNum == 1){
+        } else if (tabNum == 1) {
             Toast.makeText(getApplicationContext(), "Tab1", Toast.LENGTH_LONG).show();
-        }
-        else if(tabNum == 2){
+        } else if (tabNum == 2) {
             Toast.makeText(getApplicationContext(), "Tab2", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Tab3", Toast.LENGTH_LONG).show();
         }
     }

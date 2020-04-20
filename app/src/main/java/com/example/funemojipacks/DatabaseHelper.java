@@ -153,16 +153,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllData(String tablename) {
         // 找出不同表的列id字符串名
         String colStr = "";
-        if(tablename.equals("User_table")){
+        if (tablename.equals("User_table")) {
             colStr = Tab1_COL_1;
         }
-        if(tablename.equals("Pic_table")){
+        if (tablename.equals("Pic_table")) {
             colStr = Tab2_COL_1;
         }
-        if(tablename.equals("Shared_table")){
+        if (tablename.equals("Shared_table")) {
             colStr = Tab3_COL_1;
         }
-        if(tablename.equals("Liked_table")){
+        if (tablename.equals("Liked_table")) {
             colStr = Tab4_COL_1;
         }
 
@@ -173,23 +173,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor home_getLikeDesc(String tablename)
-    {
-        SQLiteDatabase db=this.getWritableDatabase();
-        if(!tablename.equals(Pic_TABLE_NAME))
-            tablename=Pic_TABLE_NAME;
-        String colStr=Tab2_COL_3;
+    public Cursor home_getLikeDesc(String tablename) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (!tablename.equals(Pic_TABLE_NAME))
+            tablename = Pic_TABLE_NAME;
+        String colStr = Tab2_COL_3;
         //根据点赞次数降序排列
-        Cursor res=db.rawQuery("SELECT * FROM " + tablename + " ORDER BY " + colStr + " DESC", null);
+        Cursor res = db.rawQuery("SELECT * FROM " + tablename + " ORDER BY " + colStr + " DESC", null);
+        return res;
+    }
+
+    public Cursor home_getNew(String tablename) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (!tablename.equals(Pic_TABLE_NAME))
+            tablename = Pic_TABLE_NAME;
+        String colStr = Tab2_COL_1;
+        Cursor res = db.rawQuery("SELECT * FROM " + tablename + " ORDER BY " + colStr + " ASC", null);
         return res;
     }
 
     /*
         Method to find a record
      */
-    public Cursor findUserRecord (String username) {
+    public Cursor findUserRecord(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT User_Pwd FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
+        Cursor res = db.rawQuery("SELECT User_Pwd FROM " + User_TABLE_NAME + " WHERE User_Name = '" + username + "'", null);
         return res;
     }
 
@@ -197,9 +205,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Method to find userID
         input: username
      */
-    public Cursor findUserID (String username) {
+    public Cursor findUserID(String username) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT User_ID FROM " + User_TABLE_NAME +" WHERE User_Name = '" + username + "'", null);
+        Cursor res = db.rawQuery("SELECT User_ID FROM " + User_TABLE_NAME + " WHERE User_Name = '" + username + "'", null);
         return res;
     }
 
@@ -207,9 +215,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Method to get just added picture ID
      */
 
-    public int getJustAddedPicID(){
+    public int getJustAddedPicID() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cur=db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME,null);
+        Cursor cur = db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME, null);
         cur.moveToFirst();
         int id = cur.getInt(0);
         return id;
@@ -228,7 +236,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab1_COL_2, username);
         contentValues.put(Tab1_COL_3, userpwd);
-        db.update(User_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        db.update(User_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
         return true;
     }
 
@@ -238,7 +246,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab2_COL_2, pic);
         contentValues.put(Tab2_COL_3, likenum);
-        db.update(Pic_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        db.update(Pic_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
         return true;
     }
 
@@ -248,7 +256,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab3_COL_2, userid);
         contentValues.put(Tab3_COL_3, picid);
-        db.update(Shared_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        db.update(Shared_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
         return true;
     }
 
@@ -258,32 +266,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab4_COL_2, userid);
         contentValues.put(Tab4_COL_3, picid);
-        db.update(Liked_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        db.update(Liked_TABLE_NAME, contentValues, "ID = ?", new String[]{id});
         return true;
     }
-
 
 
     /*
         Method to delete a record
      */
-    public Integer deleteData (String tablename, String id) {
+    public Integer deleteData(String tablename, String id) {
         // 找出不同表的列id字符串名
         String colStr = "";
-        if(tablename.equals("User_table")){
+        if (tablename.equals("User_table")) {
             colStr = Tab1_COL_1;
         }
-        if(tablename.equals("Pic_table")){
+        if (tablename.equals("Pic_table")) {
             colStr = Tab2_COL_1;
         }
-        if(tablename.equals("Shared_table")){
+        if (tablename.equals("Shared_table")) {
             colStr = Tab3_COL_1;
         }
-        if(tablename.equals("Liked_table")){
+        if (tablename.equals("Liked_table")) {
             colStr = Tab4_COL_1;
         }
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(tablename, colStr + " = ?", new String[] {id});
+        return db.delete(tablename, colStr + " = ?", new String[]{id});
     }
 
 }

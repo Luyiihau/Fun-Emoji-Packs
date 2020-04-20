@@ -16,7 +16,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.funemojipacks.DatabaseHelper;
+import com.example.funemojipacks.MainActivity;
 import com.example.funemojipacks.R;
+import com.example.funemojipacks.shareFragment.LoginActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -61,6 +63,15 @@ public class Browse_v3 extends AppCompatActivity {
     }
 
     public void onClickLike(View v) {
+        if (!MainActivity.isLogin) {
+            System.out.println("Not login2");
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+//        else
+//        {
+//            memeDb.updateLike()
+//        }
 
     }
 

@@ -16,10 +16,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.funemojipacks.home.HomeAdapter;
 //import com.example.funemojipacks.home.LoginActivity;
 import com.example.funemojipacks.home.home_hottest;
-import com.example.funemojipacks.home.home_hottest_v2;
 import com.example.funemojipacks.home.home_hottest_v3;
 import com.example.funemojipacks.home.home_meme;
 import com.example.funemojipacks.home.home_newest;
+import com.example.funemojipacks.home.home_newest_v3;
+import com.example.funemojipacks.shareFragment.LoginActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -43,17 +44,17 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.home_page,container,false);
+        view = inflater.inflate(R.layout.home_page, container, false);
         initView();
         return view;
     }
 
     private void initView() {
         viewPager = (ViewPager) view.findViewById(R.id.homeviewPager);
-        list.add(new home_meme());
+//        list.add(new home_meme());
 //        list.add(new home_hottest());
         list.add(new home_hottest_v3());
-        list.add(new home_newest());
+        list.add(new home_newest_v3());
 
         stringList.add("MEME");
         stringList.add("HOTTEST");
@@ -67,15 +68,4 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        if (!MainActivity.isLogin) {
-//            System.out.println("Not login2");
-//            Intent intent = new Intent(getContext(), LoginActivity.class);
-//            startActivity(intent);
-//        } else
-//            initView();
-//    }
 }
