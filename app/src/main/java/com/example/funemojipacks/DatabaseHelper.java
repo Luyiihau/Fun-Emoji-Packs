@@ -221,12 +221,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
 
     // Method to update a record to the UserTable
-    public boolean updateUser(String id, String username, String userpwd) {
+    public boolean updateUser(String userid, String username, String userpwd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab1_COL_2, username);
         contentValues.put(Tab1_COL_3, userpwd);
-        db.update(User_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        db.update(User_TABLE_NAME, contentValues, "User_ID = ?", new String[] {userid});
         return true;
     }
 
@@ -236,27 +236,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Tab2_COL_2, pic);
         contentValues.put(Tab2_COL_3, likenum);
-        db.update(Pic_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        db.update(Pic_TABLE_NAME, contentValues, "Pic_ID = ?", new String[] {id});
         return true;
     }
 
     // Method to update a record to the SharedTable
-    public boolean updateShare(String id, String userid, String picid) {
+    public boolean updateShare(String picid, byte[] pic) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab3_COL_2, userid);
+        // contentValues.put(Tab3_COL_2, userid);
         contentValues.put(Tab3_COL_3, picid);
-        db.update(Shared_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        db.update(Shared_TABLE_NAME, contentValues, "Shared_ID = ?", new String[] {picid});
         return true;
     }
 
     // Method to update a record to the LikedTable
-    public boolean updateLike(String id, String userid, String picid) {
+    public boolean updateLike(String picid, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Tab4_COL_2, userid);
-        contentValues.put(Tab4_COL_3, picid);
-        db.update(Liked_TABLE_NAME, contentValues, "ID = ?", new String[] {id});
+        contentValues.put(Tab4_COL_2, picid);
+        contentValues.put(Tab4_COL_3, likenum);
+        db.update(Liked_TABLE_NAME, contentValues, "Shared_Pic_ID = ?", new String[] {picid});
         return true;
     }
 
