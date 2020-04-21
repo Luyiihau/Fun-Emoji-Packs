@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">Fun Emoji Packs</string>
-    <string name="makePage_image">Showing the image you choose</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="make_text_inputhint">Please input the text you want.</string>
 
     <string name="profile_img">This is user img profile.</string>
-
     <string name="login_username">Username/E-mail: </string>
     <string name="sample_login_username">user1</string>
     <string name="login_pwd">Password: </string>
@@ -30,5 +27,4 @@
 
     <string name="user_not_login"> Please login to your account before sharing.</string>
     <string name="share_complete"> Share Succeed!</string>
-
 </resources>

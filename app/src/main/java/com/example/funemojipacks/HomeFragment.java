@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.funemojipacks.home.HomeAdapter;
+//import com.example.funemojipacks.home.LoginActivity;
 import com.example.funemojipacks.home.home_hottest;
-import com.example.funemojipacks.home.home_meme;
 import com.example.funemojipacks.home.home_newest;
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,6 +28,10 @@ public class HomeFragment extends Fragment {
     private List<Fragment> list = new ArrayList<Fragment>();
     private List<String> stringList = new ArrayList<>();
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -39,13 +43,11 @@ public class HomeFragment extends Fragment {
 
     private void initView() {
         viewPager = (ViewPager) view.findViewById(R.id.homeviewPager);
-        list.add(new home_meme());
-        list.add(new home_hottest());
         list.add(new home_newest());
+        list.add(new home_hottest());
 
-        stringList.add("MEME");
-        stringList.add("HOTTEST");
         stringList.add("NEWEST");
+        stringList.add("HOTTEST");
 
         tabLayout = (TabLayout) view.findViewById(R.id.home_tab_layout);
         for (String str : stringList) {
@@ -54,10 +56,5 @@ public class HomeFragment extends Fragment {
         HomeAdapter adapter = new HomeAdapter(getChildFragmentManager(), list, stringList);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 }

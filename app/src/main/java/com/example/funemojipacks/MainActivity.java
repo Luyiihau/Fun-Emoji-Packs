@@ -73,31 +73,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         setContentView(R.layout.activity_main);
         verifyPermissions(this);
 
-//        mSearchView = (SearchView) findViewById(R.id.searchView);
-//        lListView = (ListView) findViewById(R.id.listView);
-//        lListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mStrs));
-//        lListView.setTextFilterEnabled(false);
-
-
-//        // 设置搜索文本监听
-//        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            // 当点击搜索按钮时触发该方法
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            // 当搜索内容改变时触发该方法
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                if (!TextUtils.isEmpty(newText)){
-//                    lListView.setFilterText(newText);
-//                }else{
-//                    lListView.clearTextFilter();
-//                }
-//                return false;
-//            }
-//        });
 
         // 初始化控件
         initView();
@@ -137,7 +112,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             case 1:
                 if (makeFragment == null) {
                     makeFragment = new MakeFragment();
-                    transaction.add(R.id.fl_content, makeFragment,"makefragment");//加入tag
+                    transaction.add(R.id.fl_content, makeFragment, "makefragment");//加入tag
                 } else {
                     transaction.show(makeFragment);
                 }
@@ -154,15 +129,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 transaction.add(R.id.fl_content, shareFragment);
                 break;
             case 3:
-                if (isLogin){
+                if (isLogin) {
                     if (userInfoFragment == null) {
                         userInfoFragment = new UserInfoFragment();
                         transaction.add(R.id.fl_content, userInfoFragment);
                     } else {
                         transaction.show(userInfoFragment);
                     }
-                }
-                else{
+                } else {
                     if (loginFragment == null) {
                         loginFragment = new LoginFragment();
                         transaction.add(R.id.fl_content, loginFragment);
@@ -286,7 +260,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         int write_permission = ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (read_permission != PackageManager.PERMISSION_GRANTED && write_permission !=
-                PackageManager.PERMISSION_GRANTED ) {
+                PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
                     activity,
@@ -300,17 +274,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     }
 
     // Me页面的底部边框跳转
-    public void getDifferentFragment(int tabNum){
-        if(tabNum == 0){
+    public void getDifferentFragment(int tabNum) {
+        if (tabNum == 0) {
             Toast.makeText(getApplicationContext(), "Tab0", Toast.LENGTH_LONG).show();
-        }
-        else if(tabNum == 1){
+        } else if (tabNum == 1) {
             Toast.makeText(getApplicationContext(), "Tab1", Toast.LENGTH_LONG).show();
-        }
-        else if(tabNum == 2){
+        } else if (tabNum == 2) {
             Toast.makeText(getApplicationContext(), "Tab2", Toast.LENGTH_LONG).show();
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "Tab3", Toast.LENGTH_LONG).show();
         }
     }
