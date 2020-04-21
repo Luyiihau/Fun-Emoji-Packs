@@ -336,7 +336,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             colStr = Tab3_COL_1;
         }
         if (tablename.equals("Liked_table")) {
-            colStr = "User_ID";
+            colStr = "Liked_ID";
         }
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(tablename, colStr + " = ?", new String[]{id});
