@@ -53,33 +53,16 @@ public class ShareLikeFragment extends Fragment {
         gridView = (GridView) view.findViewById(R.id.me_pic_grid);
         // !!!
         // getActivity()
-        gridView.setAdapter(new ShareLikeAdapter(getContext(), UserInfoFragment.pics));
-        System.out.println("LOOK HERE!");
-        System.out.println(pics.size());
-    }
-
-    // 0
-    public void getUserSharedImg() {
-
-        Cursor res = memeDb.getSharedImg(String.valueOf(MainActivity.userID));
-
-        StringBuffer buffer = new StringBuffer();
-        if (res.getCount() == 0) {
-            Toast.makeText(getContext(), "You have not shared anything! Come and Share!"
-                    ,Toast.LENGTH_LONG).show();
+        if ( pageTabNo == 0){
+            gridView.setAdapter(new ShareLikeAdapter(getContext(), UserInfoFragment.pics_0));
         }
-        else {
-            while (res.moveToNext()) {
-                byte[] in = res.getBlob(res.getColumnIndex("Pic_Pos"));
-                pics.add(BitmapFactory.decodeByteArray(in, 0, in.length));
-            }
+        else{
+            gridView.setAdapter(new ShareLikeAdapter(getContext(), UserInfoFragment.pics_1));
         }
+        // System.out.println("LOOK HERE!");
+        // System.out.println(pics.size());
     }
 
-    // 1
-    public void getUserLikeddImg() {
-
-    }
 
 }
 

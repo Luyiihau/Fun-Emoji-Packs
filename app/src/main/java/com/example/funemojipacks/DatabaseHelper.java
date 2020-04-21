@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.lang.reflect.Method;
+
 /*
 e.g.
 Write in MainActivity.java
@@ -44,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String Tab1_COL_3 = "User_Pwd";
 
     private static final String Tab2_COL_1 = "Pic_ID";
-    private static final String Tab2_COL_2 = "Pic_Pos";
+    private static final String Tab2_COL_2 = "Pic";
     private static final String Tab2_COL_3 = "Pic_Num_Liked";
 
     private static final String Tab3_COL_1 = "Shared_ID";
@@ -73,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "Shared_User_ID INTEGER, Shared_Pic_ID INTEGER,"
                 + "FOREIGN KEY(Shared_User_ID) REFERENCES User_table(User_ID),"
                 + "FOREIGN KEY(Shared_Pic_ID) REFERENCES Pic_table(Pic_ID))");
-        db.execSQL("create table " + Liked_TABLE_NAME + "(User_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        db.execSQL("create table " + Liked_TABLE_NAME + "(Liked_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "Liked_User_ID INTEGER, Liked_Pic_ID INTEGER,"
                 + "FOREIGN KEY(Liked_User_ID) REFERENCES User_table(User_ID),"
                 + "FOREIGN KEY(Liked_Pic_ID) REFERENCES Pic_table(Pic_ID))");
@@ -224,9 +226,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Method to get picture shared by specific user
     public Cursor getSharedImg(String userid) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT Pic_table.Pic_Pos, Pic_table.Pic_ID FROM Pic_table, Shared_table"
-                + " WHERE Shared_table.Shared_User_ID = " + "'" + userid + "'"
+        Cursor res = db.rawQuery("SELECT Pic_table.Pic, Pic_table.Pic_ID FROM Pic_table, Shared_table"
+                + " WHERE Shared_table.Shared_User_ID = " +  "'" + userid +  "'"
                 + " AND Shared_table.Shared_Pic_ID = Pic_table.Pic_ID", null);
+        return res;
+    }
+
+    // Method to get picture liked by specific user
+    public Cursor getLikedImg(String userid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT Pic_table.Pic, Pic_table.Pic_ID FROM Pic_table, Liked_table"
+                + " WHERE Liked_table.Liked_User_ID = " +  "'" + userid +  "'"
+                + " AND Liked_table.Liked_Pic_ID = Pic_table.Pic_ID", null);
         return res;
     }
 

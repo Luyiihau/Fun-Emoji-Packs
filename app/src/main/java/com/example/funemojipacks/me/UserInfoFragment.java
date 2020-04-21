@@ -33,7 +33,8 @@ public class UserInfoFragment extends Fragment {
     private View view;
 
     DatabaseHelper memeDb;
-    public static ArrayList<Bitmap> pics;
+    public static ArrayList<Bitmap> pics_0;
+    public static ArrayList<Bitmap> pics_1;
 
     final
 
@@ -62,14 +63,16 @@ public class UserInfoFragment extends Fragment {
         stringList.add("Shared");
         stringList.add("Liked");
 
+        list.add(new ShareLikeFragment(0));
         list.add(new ShareLikeFragment(1));
-        list.add(new ShareLikeFragment(2));
 
         for (String str : stringList) {
             mTabLayout.addTab(mTabLayout.newTab().setText(str));
         }
 
         getUserSharedImg();
+        getUserLikedImg();
+
         // ViewPager加适配器Adapter
         MeAdapter adapter = new MeAdapter(getChildFragmentManager(), list, stringList);
 
@@ -118,7 +121,7 @@ public class UserInfoFragment extends Fragment {
 
         Cursor res = memeDb.getSharedImg(String.valueOf(MainActivity.userID));
 
-        pics = new ArrayList<>();
+        pics_0 = new ArrayList<>();
 
         if (res.getCount() == 0) {
             Toast.makeText(getContext(), "You have not shared anything! Come and Share!"
@@ -126,12 +129,28 @@ public class UserInfoFragment extends Fragment {
         }
         else {
             while (res.moveToNext()) {
-                byte[] in = res.getBlob(res.getColumnIndex("Pic_Pos"));
-                pics.add(BitmapFactory.decodeByteArray(in, 0, in.length));
+                byte[] in = res.getBlob(res.getColumnIndex("Pic"));
+                pics_0.add(BitmapFactory.decodeByteArray(in, 0, in.length));
             }
         }
     }
 
     // 1
+    public void getUserLikedImg() {
 
+        Cursor res = memeDb.getLikedImg(String.valueOf(MainActivity.userID));
+
+        pics_1 = new ArrayList<>();
+
+        if (res.getCount() == 0) {
+            Toast.makeText(getContext(), "You have not shared anything! Come and Share!"
+                    ,Toast.LENGTH_LONG).show();
+        }
+        else {
+            while (res.moveToNext()) {
+                byte[] in = res.getBlob(res.getColumnIndex("Pic"));
+                pics_1.add(BitmapFactory.decodeByteArray(in, 0, in.length));
+            }
+        }
+    }
 }
