@@ -51,7 +51,7 @@ public class home_newest extends Fragment {
         memeDb = new DatabaseHelper(getActivity());
         Cursor res = memeDb.home_getNew("Pic_table");
         while (res.moveToNext()) {
-            byte[] in = res.getBlob(res.getColumnIndex("Pic_Pos"));
+            byte[] in = res.getBlob(res.getColumnIndex("Pic"));
             faces.add(in);
             pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
         }
