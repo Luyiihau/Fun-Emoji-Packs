@@ -29,7 +29,7 @@ public class UserInfoFragment extends Fragment {
     private Fragment userInfoFragment, loginFragment;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
-    private TextView mLogout;
+    private TextView mLogout, mUsername, mUserID;
     private View view;
 
     DatabaseHelper memeDb;
@@ -60,8 +60,13 @@ public class UserInfoFragment extends Fragment {
 
         mTabLayout = (TabLayout) view.findViewById(R.id.meTabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.meViewerPager);
+        mUsername =  (TextView) view.findViewById(R.id.user_name_text);
+        mUserID = (TextView) view.findViewById(R.id.user_id_text);
         stringList.add("Shared");
         stringList.add("Liked");
+
+        mUsername.setText(String.valueOf(MainActivity.userName));
+        mUserID.setText("ID: " + MainActivity.userID);
 
         list.add(new ShareLikeFragment(0));
         list.add(new ShareLikeFragment(1));

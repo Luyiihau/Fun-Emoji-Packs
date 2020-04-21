@@ -197,10 +197,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    // Method to get just added picture ID
-    public int getJustAddedPicID(){
+    // Method to get just added user ID
+    public int getJustAddedUserId(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cur=db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME,null);
+        Cursor cur=db.rawQuery("select LAST_INSERT_ROWID() FROM " + User_TABLE_NAME,null);
+        cur.moveToFirst();
+        int id = cur.getInt(0);
+        return id;
+    }
+
+    // Method to get just added picture ID
+    public int getJustAddedPicID() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cur = db.rawQuery("select LAST_INSERT_ROWID() FROM " + Pic_TABLE_NAME, null);
         cur.moveToFirst();
         int id = cur.getInt(0);
         return id;

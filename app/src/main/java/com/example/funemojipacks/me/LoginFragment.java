@@ -65,19 +65,6 @@ public class LoginFragment extends Fragment {
                 }
                 // add more if conditions here
                 else{
-                    /*
-                    Intent intent = new Intent(getActivity(), ShowUserInfoActivity.class);
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("username", username);
-                    intent.putExtras(bundle);
-
-                    // startActivity(intent);
-                    // 带请求码值1到ShowUserInfoActivity
-                    startActivityForResult(intent, 1);
-
-                     */
-
                     // System.out.println("Button Click");
                     int isInputCorrect = checkUserRecords(username, pwd);
                     if(isInputCorrect==2){
@@ -89,6 +76,7 @@ public class LoginFragment extends Fragment {
                     else{
                         Toast.makeText(getContext(), R.string.login_succ_tips, Toast.LENGTH_LONG).show();
                         MainActivity.isLogin = true;
+                        MainActivity.userName = username;
 
                         //设置static userID，在share 页面有用
                         Cursor res = memeDb.findUserID(username);

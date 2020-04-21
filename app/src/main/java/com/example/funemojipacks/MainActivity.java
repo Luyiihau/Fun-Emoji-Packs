@@ -65,6 +65,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
     public static Boolean isLogin = false;
     public static int userID;
+    public static String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

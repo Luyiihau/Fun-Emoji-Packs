@@ -50,7 +50,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), R.string.regist_succ_tips,
                                 Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        intent.putExtra("id",3);
+                        // extra data
+                        intent.putExtra("id",String.valueOf(getLastUserId()));
+                        intent.putExtra("username",username);
                         startActivity(intent);
                     }
                     else {
@@ -68,6 +70,11 @@ public class RegisterActivity extends AppCompatActivity {
         boolean isInserted = memeDb.insertUser(vNewUsername.getText().toString(),
                 vNewPwd.getText().toString());
         return isInserted;
+    }
+
+    public int getLastUserId() {
+        int userid = memeDb.getJustAddedUserId();
+        return userid;
     }
 
     public void showUserRecords() {
