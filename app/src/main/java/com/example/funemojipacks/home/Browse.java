@@ -105,7 +105,7 @@ public class Browse extends AppCompatActivity {
             else {
                 Cursor res_tmp = memeDb.findLikeID(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
                 res_tmp.moveToNext();
-                int likeid = res_tmp.getInt(res_tmp.getColumnIndex("User_ID"));
+                int likeid = res_tmp.getInt(res_tmp.getColumnIndex("Liked_ID"));
                 memeDb.deleteData("Liked_table", String.valueOf(likeid));
                 num_liked--;
                 memeDb.updatePic_Num_Liked(String.valueOf(pic_id), String.valueOf(pic_like_num));
