@@ -17,18 +17,16 @@ import java.util.ArrayList;
 
 public class HomeImageAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<Integer> imageUrls;
+    private ArrayList<byte[]> imageUrls;//图片路径
 
-    public HomeImageAdapter(Context context,ArrayList<Integer> imageUrls)
-    {
+    public HomeImageAdapter(Context context, ArrayList<byte[]> imageUrls) {
         super();
-        this.context=context;
-        this.imageUrls=imageUrls;
+        this.context = context;
+        this.imageUrls = imageUrls;
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return imageUrls.size();
     }
 
@@ -57,18 +55,16 @@ public class HomeImageAdapter extends BaseAdapter {
             holder = (HomeImageAdapter.ViewHolder) convertView.getTag();// 如果convertView不为空，那么就在convertView中getTag()拿出来
         }
 
-        //用Glide读取并加载图片 https://www.youtube.com/watch?v=xMyfY02Bs_M
-        //Fragment 嵌套 GridView https://www.jianshu.com/p/56c17ed179fa
+//        用Glide读取并加载图片 https://www.youtube.com/watch?v=xMyfY02Bs_M
+//        Fragment 嵌套 GridView https://www.jianshu.com/p/56c17ed179fa
         Glide.with(context)
                 .load(imageUrls.get(position))
                 .into(holder.iv);//改成把图片放进imageview里
-
         return convertView;
     }
 
 
-
-    static class ViewHolder{
+    static class ViewHolder {
         ImageView iv;
     }
 }

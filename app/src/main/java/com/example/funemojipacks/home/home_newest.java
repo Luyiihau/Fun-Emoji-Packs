@@ -2,6 +2,7 @@ package com.example.funemojipacks.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,47 +11,50 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
+import com.example.funemojipacks.DatabaseHelper;
 import com.example.funemojipacks.R;
 
 import java.util.ArrayList;
 
 public class home_newest extends Fragment {
-
     private Context context;
     private GridView gridView;
-    private View view;
-    private ArrayList<Integer> faces=new ArrayList<>();
+    private FragmentActivity view;
+    private DatabaseHelper memeDb;
+    private ArrayList<byte[]> faces = new ArrayList<>();
+    private ArrayList<Integer> pic_id = new ArrayList<>();
 
     public home_newest() {
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home_newest, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_home_newest, container, false);
+//        initView();
+//        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
         initView();
-        return view;
     }
 
     private void initView() {
-//        final int[] faces = {R.drawable.make1, R.drawable.make2, R.drawable.make3,
-//                R.drawable.make4, R.drawable.make5};
-        if(!faces.contains(R.drawable.make1))
-            faces.add(R.drawable.make1);
-        if(!faces.contains(R.drawable.make2))
-            faces.add(R.drawable.make2);
-        if(!faces.contains(R.drawable.make3))
-            faces.add(R.drawable.make3);
-        if(!faces.contains(R.drawable.make4))
-            faces.add(R.drawable.make4);
-        if(!faces.contains(R.drawable.make5))
-            faces.add(R.drawable.make5);
-//        faces.add(R.drawable.make1);
-//        faces.add(R.drawable.make2);
-//        faces.add(R.drawable.make3);
-//        faces.add(R.drawable.make4);
-//        faces.add(R.drawable.make5);
+        //添加路径
+        view=getActivity();
+        memeDb = new DatabaseHelper(getActivity());
+        Cursor res = memeDb.home_getNew("Pic_table");
+        while (res.moveToNext()) {
+            byte[] in = res.getBlob(res.getColumnIndex("Pic_Pos"));
+            faces.add(in);
+            pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
+        }
         gridView = (GridView) view.findViewById(R.id.home_newest_grid);
         gridView.setAdapter(new HomeImageAdapter(getActivity(), faces));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,10 +62,13 @@ public class home_newest extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), Browse.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("image", faces.get(position));
+                bundle.putByteArray("image", faces.get(position));
+                bundle.putInt("pic_id", pic_id.get(position));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
     }
+
+
 }

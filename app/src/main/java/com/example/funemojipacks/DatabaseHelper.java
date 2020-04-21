@@ -258,6 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean updatePic_Num_Liked(String pic_id, String likenum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+//        contentValues.put(Tab2_COL_2, pic_id);
         contentValues.put(Tab2_COL_3, likenum);
         db.update(Pic_TABLE_NAME, contentValues, "Pic_ID = ?", new String[]{pic_id});
         return true;
@@ -324,10 +325,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             colStr = Tab3_COL_1;
         }
         if (tablename.equals("Liked_table")) {
-            colStr = Tab4_COL_1;
+            colStr = "User_ID";
         }
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(tablename, colStr + " = ?", new String[]{id});
     }
-
+    // !!! Method to get liked num
+    public int getPicLikedNum(String picid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cur = db.rawQuery("select Pic_Num_Liked FROM " + Pic_TABLE_NAME
+                + " WHERE Pic_ID = " + picid, null);
+        cur.moveToFirst();
+        int id = cur.getInt(0);
+        return id;
+    }
 }

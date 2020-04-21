@@ -1,9 +1,5 @@
 package com.example.funemojipacks;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.funemojipacks.home.HomeAdapter;
 //import com.example.funemojipacks.home.LoginActivity;
 import com.example.funemojipacks.home.home_hottest;
-import com.example.funemojipacks.home.home_hottest_v3;
-import com.example.funemojipacks.home.home_meme;
 import com.example.funemojipacks.home.home_newest;
-import com.example.funemojipacks.home.home_newest_v3;
-import com.example.funemojipacks.shareFragment.LoginActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -51,10 +43,9 @@ public class HomeFragment extends Fragment {
 
     private void initView() {
         viewPager = (ViewPager) view.findViewById(R.id.homeviewPager);
-        list.add(new home_newest_v3());
-        list.add(new home_hottest_v3());
+        list.add(new home_newest());
+        list.add(new home_hottest());
 
-//        stringList.add("MEME");
         stringList.add("NEWEST");
         stringList.add("HOTTEST");
 
