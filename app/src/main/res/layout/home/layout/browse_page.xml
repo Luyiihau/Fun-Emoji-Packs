@@ -20,9 +20,9 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/downbtn_selector"
+        android:onClick="onClickSave"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_view"
-        android:onClick="onClickSave"/>
+        app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
     <Button
         android:id="@+id/likeBtn"
@@ -31,6 +31,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="100dp"
         android:background="@drawable/likebtn_selector"
+        android:onClick="onClickLike"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_view" />
 

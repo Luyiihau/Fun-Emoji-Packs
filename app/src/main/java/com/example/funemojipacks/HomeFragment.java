@@ -51,14 +51,12 @@ public class HomeFragment extends Fragment {
 
     private void initView() {
         viewPager = (ViewPager) view.findViewById(R.id.homeviewPager);
-//        list.add(new home_meme());
-//        list.add(new home_hottest());
-        list.add(new home_hottest_v3());
         list.add(new home_newest_v3());
+        list.add(new home_hottest_v3());
 
-        stringList.add("MEME");
-        stringList.add("HOTTEST");
+//        stringList.add("MEME");
         stringList.add("NEWEST");
+        stringList.add("HOTTEST");
 
         tabLayout = (TabLayout) view.findViewById(R.id.home_tab_layout);
         for (String str : stringList) {

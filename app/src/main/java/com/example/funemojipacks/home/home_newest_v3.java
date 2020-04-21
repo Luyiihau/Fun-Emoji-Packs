@@ -47,7 +47,7 @@ public class home_newest_v3 extends Fragment {
         while (res.moveToNext()) {
             byte[] in = res.getBlob(res.getColumnIndex("Pic_Pos"));
             faces.add(in);
-            pic_id.add(res.getColumnIndex("Pic_ID"));
+            pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
         }
         gridView = (GridView) view.findViewById(R.id.home_newest_grid);
         gridView.setAdapter(new HomeImageAdapter_v3(getActivity(), faces));

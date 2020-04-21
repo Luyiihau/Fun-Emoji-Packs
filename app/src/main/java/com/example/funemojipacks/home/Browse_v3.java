@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.chrono.MinguoChronology;
 
 public class Browse_v3 extends AppCompatActivity {
     //    Context context;
@@ -41,7 +42,6 @@ public class Browse_v3 extends AppCompatActivity {
         memeDb = new DatabaseHelper(this);
 
         imageView = findViewById(R.id.image_view);
-//        downBtn = findViewById(R.id.downBtn);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -67,12 +67,31 @@ public class Browse_v3 extends AppCompatActivity {
             System.out.println("Not login2");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+        } else {
+            Cursor res = memeDb.findLikeThroughPic_id(Integer.toString(pic_id));
+            res.moveToNext();
+            int num_liked = res.getInt(res.getColumnIndex("Pic_Num_Liked"));
+            int id = res.getInt(res.getColumnIndex("Pic_ID"));
+            System.out.println("like" + num_liked);
+            System.out.println("pic_id" + id);
+//            num_liked++;
+//            memeDb.updateLike(String.valueOf(pic_id), String.valueOf(num_liked), String.valueOf(MainActivity.userID));
+//            memeDb.updatePic_Num_Liked(String.valueOf(pic_id), String.valueOf(num_liked));
+            if (!memeDb.IsThumbUp(String.valueOf(MainActivity.userID), String.valueOf(pic_id))) {
+                memeDb.insertLike(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
+                num_liked++;
+                memeDb.updateLike(String.valueOf(pic_id), String.valueOf(num_liked), String.valueOf(MainActivity.userID));
+                Toast.makeText(this, "点赞成功！",Toast.LENGTH_SHORT).show();
+            } else {
+                Cursor res_tmp = memeDb.findLikeID(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
+                res.moveToNext();
+                int likeid = res.getInt(res.getColumnIndex("Liked_ID"));
+                memeDb.deleteData("Liked_table", String.valueOf(likeid));
+                num_liked--;
+                memeDb.updateLike(String.valueOf(pic_id), String.valueOf(num_liked), String.valueOf(MainActivity.userID));
+                Toast.makeText(this, "取消点赞成功！",Toast.LENGTH_SHORT).show();
+            }
         }
-//        else
-//        {
-//            memeDb.updateLike()
-//        }
-
     }
 
     public void savePicture(Bitmap bitmap, String filename) {
