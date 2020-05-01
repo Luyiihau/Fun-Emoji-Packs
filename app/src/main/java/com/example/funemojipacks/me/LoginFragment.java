@@ -2,6 +2,7 @@ package com.example.funemojipacks.me;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,6 +41,13 @@ public class LoginFragment extends Fragment {
 
      */
 
+    public void savePreferences() {
+        SharedPreferences pref = getActivity().getSharedPreferences("MEME", getActivity().MODE_PRIVATE);
+        pref.edit().putInt("userid", MainActivity.userID).apply();
+        pref.edit().putString("username", MainActivity.userName).apply();
+        pref.edit().putBoolean("isLogIn", MainActivity.isLogin).apply();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.me_login, container, false);
@@ -75,9 +83,10 @@ public class LoginFragment extends Fragment {
                     }
                     else{
                         Toast.makeText(getContext(), R.string.login_succ_tips, Toast.LENGTH_LONG).show();
+
                         MainActivity.isLogin = true;
                         MainActivity.userName = username;
-
+                        savePreferences();
                         //设置static userID，在share 页面有用
                         Cursor res = memeDb.findUserID(username);
                         res.moveToFirst();

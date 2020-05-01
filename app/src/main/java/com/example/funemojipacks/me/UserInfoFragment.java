@@ -1,5 +1,6 @@
 package com.example.funemojipacks.me;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,6 +44,13 @@ public class UserInfoFragment extends Fragment {
 
     public UserInfoFragment() {
 
+    }
+
+    public void savePreferences() {
+        SharedPreferences pref = getActivity().getSharedPreferences("MEME", getActivity().MODE_PRIVATE);
+        pref.edit().putInt("userid", MainActivity.userID).apply();
+        pref.edit().putString("username", MainActivity.userName).apply();
+        pref.edit().putBoolean("isLogIn", MainActivity.isLogin).apply();
     }
 
     @Override
@@ -98,6 +106,8 @@ public class UserInfoFragment extends Fragment {
 
                 Toast.makeText(getContext(), R.string.logout_succ_tips, Toast.LENGTH_LONG).show();
                 MainActivity.isLogin = false;
+                MainActivity.userName = "";
+                savePreferences();
                 // finish();
 
                 FragmentManager fragmentManager = getChildFragmentManager();

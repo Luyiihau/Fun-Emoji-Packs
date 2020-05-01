@@ -2,6 +2,7 @@ package com.example.funemojipacks;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -67,9 +68,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     public static int userID;
     public static String userName;
 
+    public void loadPreferences() {
+        SharedPreferences pref = getSharedPreferences("MEME", MODE_PRIVATE);
+        userID = pref.getInt("userid", 1);
+        isLogin = pref.getBoolean("isLogIn", false);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadPreferences();
         setContentView(R.layout.activity_main);
         verifyPermissions(this);
 
