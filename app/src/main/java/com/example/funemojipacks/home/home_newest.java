@@ -17,11 +17,12 @@ import com.example.funemojipacks.DatabaseHelper;
 import com.example.funemojipacks.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class home_newest extends Fragment {
     private Context context;
     private GridView gridView;
-    private FragmentActivity view;
+    private View view;
     private DatabaseHelper memeDb;
     private ArrayList<byte[]> faces = new ArrayList<>();
     private ArrayList<Integer> pic_id = new ArrayList<>();
@@ -40,22 +41,22 @@ public class home_newest extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-
         super.onActivityCreated(savedInstanceState);
         initView();
     }
 
     private void initView() {
         //添加路径
-        view=getActivity();
         memeDb = new DatabaseHelper(getActivity());
         Cursor res = memeDb.home_getNew("Pic_table");
         while (res.moveToNext()) {
             byte[] in = res.getBlob(res.getColumnIndex("Pic"));
-            faces.add(in);
-            pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
+            if (!faces.contains(in))
+                faces.add(in);
+            if (!pic_id.contains(res.getInt(res.getColumnIndex("Pic_ID"))))
+                pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
         }
-        gridView = (GridView) view.findViewById(R.id.home_newest_grid);
+        gridView = (GridView) Objects.requireNonNull(getView()).findViewById(R.id.home_newest_grid);
         gridView.setAdapter(new HomeImageAdapter(getActivity(), faces));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

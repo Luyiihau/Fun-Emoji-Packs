@@ -16,6 +16,7 @@ import com.example.funemojipacks.DatabaseHelper;
 import com.example.funemojipacks.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class home_hottest extends Fragment {
     private Context context;
@@ -23,7 +24,7 @@ public class home_hottest extends Fragment {
     private View view;
     private DatabaseHelper memeDb;
     private ArrayList<byte[]> faces = new ArrayList<>();
-    private ArrayList<Integer> pic_id=new ArrayList<>();
+    private ArrayList<Integer> pic_id = new ArrayList<>();
 
     public home_hottest() {
 
@@ -32,21 +33,31 @@ public class home_hottest extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_home_hottest, container, false);
+        return inflater.inflate(R.layout.fragment_home_hottest, container, false);
+//        initView();
+//        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
         initView();
-        return view;
     }
 
     private void initView() {
         //添加路径
+//        view = getView();
         memeDb = new DatabaseHelper(getActivity());
         Cursor res = memeDb.home_getLikeDesc("Pic_table");
         while (res.moveToNext()) {
             byte[] in = res.getBlob(res.getColumnIndex("Pic"));
-            faces.add(in);
-            pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
+            if (!faces.contains(in))
+                faces.add(in);
+            if (!pic_id.contains(res.getInt(res.getColumnIndex("Pic_ID"))))
+                pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
         }
-        gridView = (GridView) view.findViewById(R.id.home_hottest_grid);
+        gridView = (GridView) Objects.requireNonNull(getView()).findViewById(R.id.home_hottest_grid);
         gridView.setAdapter(new HomeImageAdapter(getActivity(), faces));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,14 +65,13 @@ public class home_hottest extends Fragment {
                 Intent intent = new Intent(getActivity(), Browse.class);
                 Bundle bundle = new Bundle();
                 bundle.putByteArray("image", faces.get(position));
-                bundle.putInt("pic_id",pic_id.get(position));
+                bundle.putInt("pic_id", pic_id.get(position));
                 System.out.println(pic_id.get(position));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
     }
-
 
 
 }

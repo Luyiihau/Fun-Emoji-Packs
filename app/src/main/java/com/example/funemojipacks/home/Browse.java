@@ -72,44 +72,22 @@ public class Browse extends AppCompatActivity {
             res.moveToNext();
             int num_liked = res.getInt(res.getColumnIndex("Pic_Num_Liked"));
             int id = res.getInt(res.getColumnIndex("Pic_ID"));
-//            System.out.println("like" + num_liked);
-//            System.out.println("pic_id" + id);
-//            num_liked++;
-//            memeDb.updateLike(String.valueOf(pic_id), String.valueOf(num_liked), String.valueOf(MainActivity.userID));
-//            memeDb.updatePic_Num_Liked(String.valueOf(pic_id), String.valueOf(num_liked));
-//            if (!memeDb.IsThumbUp(String.valueOf(MainActivity.userID), String.valueOf(pic_id))) {
-//                memeDb.insertLike(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
-//                num_liked++;
-//                memeDb.updateLike(String.valueOf(pic_id), String.valueOf(num_liked), String.valueOf(MainActivity.userID));
-//                Toast.makeText(this, "点赞成功！",Toast.LENGTH_SHORT).show();
-//            } else {
-//                Cursor res_tmp = memeDb.findLikeID(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
-//                res.moveToNext();
-//                int likeid = res.getInt(res.getColumnIndex("Liked_ID"));
-//                memeDb.deleteData("Liked_table", String.valueOf(likeid));
-//                num_liked--;
-//                memeDb.updateLike(String.valueOf(pic_id), String.valueOf(num_liked), String.valueOf(MainActivity.userID));
-//                Toast.makeText(this, "取消点赞成功！",Toast.LENGTH_SHORT).show();
-//            }
             int pic_like_num = memeDb.getPicLikedNum(String.valueOf(pic_id));
-            if (!memeDb.IsThumbUp(String.valueOf(MainActivity.userID), String.valueOf(pic_id))){
+            if (!memeDb.IsThumbUp(String.valueOf(MainActivity.userID), String.valueOf(pic_id))) {
                 memeDb.insertLike(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
-                // memeDb.insertLike(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
-                // num_liked++;
-                // memeDb.updateLike(String.valueOf(pic_id), String.valueOf(num_liked), String.valueOf(MainActivity.userID));
 
-                pic_like_num+=1;
+
+                pic_like_num += 1;
                 memeDb.updatePic_Num_Liked(String.valueOf(pic_id), String.valueOf(pic_like_num));
-                Toast.makeText(this, "点赞成功！", Toast.LENGTH_SHORT).show();
-            }
-            else {
+                Toast.makeText(this, "You like this meme!", Toast.LENGTH_SHORT).show();
+            } else {
                 Cursor res_tmp = memeDb.findLikeID(String.valueOf(MainActivity.userID), String.valueOf(pic_id));
                 res_tmp.moveToNext();
                 int likeid = res_tmp.getInt(res_tmp.getColumnIndex("Liked_ID"));
                 memeDb.deleteData("Liked_table", String.valueOf(likeid));
                 num_liked--;
                 memeDb.updatePic_Num_Liked(String.valueOf(pic_id), String.valueOf(pic_like_num));
-                Toast.makeText(this, "取消点赞成功！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "You have cancelled likes.", Toast.LENGTH_SHORT).show();
             }
         }
     }
