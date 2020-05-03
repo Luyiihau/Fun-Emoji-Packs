@@ -39,13 +39,7 @@
         <activity android:name=".shareFragment.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name=".home.Search"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
             android:name=".home.Browse"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".home.Browse_v2"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".home.Browse"
