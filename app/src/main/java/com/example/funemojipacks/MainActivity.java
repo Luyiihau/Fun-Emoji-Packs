@@ -110,12 +110,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         hideFragment(transaction);
         switch (index) {
             case 0:
-                if (homeFragment == null) {
-                    homeFragment = new HomeFragment();
-                    transaction.add(R.id.fl_content, homeFragment);
-                } else {
-                    transaction.show(homeFragment);
-                }
+//                if (homeFragment == null) {
+//                    homeFragment = new HomeFragment();
+//                    transaction.add(R.id.fl_content, homeFragment);
+//                } else {
+//                    transaction.show(homeFragment);
+//                }
+                homeFragment=new HomeFragment();
+                transaction.add(R.id.fl_content,homeFragment);
                 break;
             case 1:
                 if (makeFragment == null) {

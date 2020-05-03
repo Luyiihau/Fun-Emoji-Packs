@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 // ----酷杨
@@ -36,20 +37,26 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.home_page, container, false);
+        return inflater.inflate(R.layout.home_page, container, false);
+//        initView();
+//        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         initView();
-        return view;
     }
 
     private void initView() {
-        viewPager = (ViewPager) view.findViewById(R.id.homeviewPager);
+        viewPager = (ViewPager) Objects.requireNonNull(getView()).findViewById(R.id.homeviewPager);
         list.add(new home_newest());
         list.add(new home_hottest());
 
         stringList.add("NEWEST");
         stringList.add("HOTTEST");
 
-        tabLayout = (TabLayout) view.findViewById(R.id.home_tab_layout);
+        tabLayout = (TabLayout) getView().findViewById(R.id.home_tab_layout);
         for (String str : stringList) {
             tabLayout.addTab(tabLayout.newTab().setText(str));
         }

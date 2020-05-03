@@ -5,13 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_gravity="center"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="meme"-->
-    <!--        android:textSize="20sp" />-->
     <Button
         android:id="@+id/search_button"
         android:layout_width="match_parent"
