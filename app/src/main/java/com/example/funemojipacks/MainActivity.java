@@ -72,6 +72,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         SharedPreferences pref = getSharedPreferences("MEME", MODE_PRIVATE);
         userID = pref.getInt("userid", 1);
         isLogin = pref.getBoolean("isLogIn", false);
+        userName = pref.getString("username", "");
     }
 
     @Override

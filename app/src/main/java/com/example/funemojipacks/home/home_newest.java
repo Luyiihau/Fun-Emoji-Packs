@@ -17,6 +17,7 @@ import com.example.funemojipacks.DatabaseHelper;
 import com.example.funemojipacks.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class home_newest extends Fragment {
@@ -56,6 +57,7 @@ public class home_newest extends Fragment {
             if (!pic_id.contains(res.getInt(res.getColumnIndex("Pic_ID"))))
                 pic_id.add(res.getInt(res.getColumnIndex("Pic_ID")));
         }
+        Collections.reverse(faces);
         gridView = (GridView) Objects.requireNonNull(getView()).findViewById(R.id.home_newest_grid);
         gridView.setAdapter(new HomeImageAdapter(getActivity(), faces));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

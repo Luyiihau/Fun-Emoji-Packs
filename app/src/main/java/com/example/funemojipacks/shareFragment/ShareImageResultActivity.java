@@ -82,7 +82,7 @@ public class ShareImageResultActivity extends AppCompatActivity implements Resul
 
                     memeDb.insertPic(imageByte, "0");
                     memeDb.insertShare(String.valueOf(MainActivity.userID), String.valueOf(memeDb.getJustAddedPicID()));
-                    Toast.makeText(getApplicationContext(), R.string.share_complete, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.share_complete, Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

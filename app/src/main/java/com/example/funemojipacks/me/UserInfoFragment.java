@@ -139,8 +139,8 @@ public class UserInfoFragment extends Fragment {
         pics_0 = new ArrayList<>();
 
         if (res.getCount() == 0) {
-            Toast.makeText(getContext(), "You have not shared anything! Come and Share!"
-                    ,Toast.LENGTH_LONG).show();
+//            Toast.makeText(getContext(), "You have not shared anything! Come and Share!"
+//                    ,Toast.LENGTH_SHORT).show();
         }
         else {
             while (res.moveToNext()) {
@@ -158,8 +158,8 @@ public class UserInfoFragment extends Fragment {
         pics_1 = new ArrayList<>();
 
         if (res.getCount() == 0) {
-            Toast.makeText(getContext(), "You have not shared anything! Come and Share!"
-                    ,Toast.LENGTH_LONG).show();
+//            Toast.makeText(getContext(), "You have not liked anything! Come and Share!"
+//                    ,Toast.LENGTH_SHORT).show();
         }
         else {
             while (res.moveToNext()) {
